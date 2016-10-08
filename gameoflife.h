@@ -1,3 +1,8 @@
+#ifndef GAMEOFLIFE_HEADER
+#define GAMEOFLIFE_HEADER
+
+
+
 #include <bits/stdc++.h>
 #include <unistd.h>
 #include <termios.h>
@@ -65,3 +70,67 @@ using namespace std;
 #define KEY_F10			"\x1b[21~"
 #define KEY_F11			"\x1b[21~"
 #define KEY_F12			"\x1b[24~"
+
+
+
+struct cfg{
+	private:
+		cfg();
+		~cfg();
+	public:
+		static cfg* pCfg;
+		static cfg* config();
+		int speed;
+		int curX,curY;
+		int cursorX,cursorY;
+		int screenLar,screenAlt;
+		int color[10];
+		string dead,alive;
+		string move[4],moveCursor[4];
+		string next,pause,speedUp,speedDown;
+		string nextx10,speedUpx10,speedDownx10;
+		string configKey;
+		void defConfig();
+		bool load(string);
+		void save();
+		void configScreen();
+		void sleep();
+		void moveCamera(int);
+		void moveCurs(int);
+};
+struct tab{
+	int lar,alt,cont;
+	char** v;
+	tab();
+	tab(int,int);
+	~tab();
+	void allocBoard();
+	void deallocBoard();
+	void operator=(const tab&);
+	bool operator==(const tab&)const;
+	int neigh(int,int);
+	void print();
+	void randomize();
+};
+struct game{
+	private:
+		game();
+		~game();
+	public:
+		static game* pGame;
+		static game* jogo();
+		short int rS,rB;
+		tab board;
+		short int ruleStringToInt(string);
+		void readArq(const string&);
+		bool isAlive(int,int);
+		bool willSurvive(int,int,int);
+		bool willBeBorn(int,int,int);
+		void next();
+		void print();
+		void randomize();
+};
+
+
+
+#endif	
