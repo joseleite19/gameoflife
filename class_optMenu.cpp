@@ -1,5 +1,6 @@
 #include "gameoflife.hpp"
 
+
 optMenu::~optMenu(){
 	for(auto i:options)delete[] i;
 }

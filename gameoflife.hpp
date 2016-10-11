@@ -134,13 +134,15 @@ class game{
 class menu_opt{
 	public:
 		menu_opt();
+		~menu_opt();
 		string s;
-		virtual void print(bool);
-		virtual void click();
+		virtual void print(bool)=0;
+		virtual void click()=0;
 };
 class menu_opt_toogle : public menu_opt{
 	public:
 		menu_opt_toogle(string,string,int&);
+		~menu_opt_toogle();
 		string s2;
 		int& val;
 		virtual void click();
@@ -149,6 +151,7 @@ class menu_opt_toogle : public menu_opt{
 class menu_opt_select : public menu_opt{
 	public:
 		menu_opt_select(string,vector<string>&,function<void(const string&)>);
+		~menu_opt_select();
 		int selected;
 		vector<string>& v;
 		void (*func)(string&);
@@ -158,12 +161,14 @@ class menu_opt_select : public menu_opt{
 class menu_opt_write : public menu_opt{
 	public:
 		menu_opt_write(string,function<bool(string)>,function<void(const string&)>);
+		~menu_opt_write();
 		virtual void print(bool);
 		virtual void click();
 };
 class menu_opt_button : public menu_opt{
 	public:
 		menu_opt_button(string,function<void()>);
+		~menu_opt_button();
 		void *func();
 		virtual void print(bool);
 		virtual void click();

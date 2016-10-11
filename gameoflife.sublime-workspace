@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"pri",
+				"print"
+			],
+			[
+				"menu_op",
+				"menu_opt"
+			],
+			[
+				"me",
+				"menu_opt"
+			],
+			[
+				"button",
+				"menu_opt_button"
+			],
+			[
+				"sele",
+				"menu_opt_select"
+			],
+			[
+				"get",
+				"getArqNames"
+			],
+			[
 				"col",
 				"COLOR_BBLUE"
 			],
@@ -46,10 +70,6 @@
 			[
 				"move",
 				"moveCamera"
-			],
-			[
-				"get",
-				"getchar"
 			],
 			[
 				"nex",
@@ -182,10 +202,6 @@
 			[
 				"pco",
 				"pColored"
-			],
-			[
-				"pri",
-				"printMap"
 			],
 			[
 				"TY",
@@ -451,15 +467,15 @@
 			"file": "gameoflife.cpp",
 			"settings":
 			{
-				"buffer_size": 2127,
+				"buffer_size": 2094,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "util_funcs.cpp",
+			"file": "gameoflife.hpp",
 			"settings":
 			{
-				"buffer_size": 2628,
+				"buffer_size": 4045,
 				"line_ending": "Unix"
 			}
 		},
@@ -467,15 +483,23 @@
 			"file": "class_config.cpp",
 			"settings":
 			{
-				"buffer_size": 1961,
+				"buffer_size": 2360,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "class_game.cpp",
+			"file": "class_optMenu.cpp",
 			"settings":
 			{
-				"buffer_size": 1560,
+				"buffer_size": 676,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "class_menu_opt.cpp",
+			"settings":
+			{
+				"buffer_size": 614,
 				"line_ending": "Unix"
 			}
 		},
@@ -483,23 +507,7 @@
 			"file": "gameoflife.sublime-project",
 			"settings":
 			{
-				"buffer_size": 135,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "class_tab.cpp",
-			"settings":
-			{
-				"buffer_size": 2453,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "gameoflife.h",
-			"settings":
-			{
-				"buffer_size": 2827,
+				"buffer_size": 208,
 				"line_ending": "Unix"
 			}
 		}
@@ -540,13 +548,23 @@
 	],
 	"file_history":
 	[
+		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/Makefile",
+		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/class_menu_opt.cpp",
+		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/class_tab.cpp",
+		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/class_optMenu.cpp",
+		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/class_game.cpp",
+		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/class_config.cpp",
+		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/gameoflife.cpp",
+		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/gameoflife.hpp",
+		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/gameoflife.sublime-project",
+		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/gameoflife_old.cpp",
+		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/util_funcs.cpp",
 		"/home/cristiano/Dropbox/UNB/Github/potato-batata/jogos_2/batata.h",
 		"/home/cristiano/Dropbox/UNB/Github/potato-batata/jogos/batata.h",
 		"/home/cristiano/Dropbox/UNB/Github/potato-batata/jogos/batata.c",
 		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/patterns/ggun1.life",
 		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/rules/1 - Default.rule",
 		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/gameoflife_test.cpp",
-		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/gameoflife.cpp",
 		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/rules/4 - Primes.rule",
 		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/rules/3 - Day and Night.rule",
 		"/home/cristiano/Dropbox/UNB/2016/tp1/gameoflife/rules/2 - HighLife.rule",
@@ -657,17 +675,7 @@
 		"/home/cristiano/Downloads/ksp/ksp-0.1.0/examples/ex9.n.in.ksp",
 		"/home/cristiano/Downloads/ksp/ksp-0.1.0/examples/ex1.n.in.ksp",
 		"/home/cristiano/Downloads/ksp/ksp-0.1.0/conf.files/all.conf",
-		"/home/cristiano/Downloads/bin2txt/160003679.c",
-		"/home/cristiano/Downloads/bin2txt/bin2txt.c",
-		"/home/cristiano/Downloads/160003679.c",
-		"/home/cristiano/Downloads/160005604.c",
-		"/home/cristiano/Downloads/160004888.c",
-		"/home/cristiano/Downloads/160005825.c",
-		"/home/cristiano/Downloads/linf/160005604.c",
-		"/home/cristiano/Downloads/linf/160005906.c",
-		"/home/cristiano/Downloads/linf/160004888.c",
-		"/home/cristiano/Downloads/160005159.c",
-		"/home/cristiano/Downloads/160005906.c"
+		"/home/cristiano/Downloads/bin2txt/160003679.c"
 	],
 	"find":
 	{
@@ -685,6 +693,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"bool",
+			"const string&",
+			"optMenu.",
+			".last",
+			"}\nclass",
+			"void ",
+			"menu::",
+			"menu",
+			"union",
+			"in==",
+			"			continue;\n",
+			"void print()",
+			"menu_opt_toogle",
+			"optMenu.",
+			"editting",
 			"cfg::config().",
 			"game::jogo().",
 			"game.jogo()",
@@ -797,22 +820,7 @@
 			"n+2",
 			"checkBorders",
 			"checkBorders(",
-			"checkBorders",
-			"[i+size][j+",
-			"[i-1][j+size-1]",
-			"j+size-1",
-			"[j+size]",
-			"cont",
-			"b",
-			"w",
-			"wl",
-			"wc",
-			"bc",
-			"-1",
-			"[n+1]",
-			"[n]",
-			"10000",
-			"10e4"
+			"checkBorders"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -836,7 +844,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -845,15 +853,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2127,
+						"buffer_size": 2094,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2044,
-								2044
+								0,
+								0
 							]
 						],
 						"settings":
@@ -862,27 +870,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 962.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "util_funcs.cpp",
+					"file": "gameoflife.hpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2628,
+						"buffer_size": 4045,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								220,
-								220
+								0,
+								0
 							]
 						],
 						"settings":
@@ -903,15 +911,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1961,
+						"buffer_size": 2360,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1201,
-								1201
+								0,
+								0
 							]
 						],
 						"settings":
@@ -920,7 +928,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 17.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -928,51 +936,75 @@
 				},
 				{
 					"buffer": 3,
-					"file": "class_game.cpp",
+					"file": "class_optMenu.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1560,
+						"buffer_size": 676,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								248,
-								248
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"rulers":
-							[
-							],
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 51.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "class_menu_opt.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 614,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "gameoflife.sublime-project",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 135,
+						"buffer_size": 208,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								21,
-								21
+								120,
+								120
 							]
 						],
 						"settings":
@@ -984,63 +1016,6 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "class_tab.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2453,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								190,
-								190
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "gameoflife.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2827,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2139,
-								2139
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1183.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
 					"type": "text"
 				}
 			]

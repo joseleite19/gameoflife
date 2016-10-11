@@ -3,8 +3,10 @@
 	[
 		{
 			"path": ".",
-			"file_exclude_patterns": ["*.sublime-project"],
-			"file_exclude_patterns": ["*.out"]
+			"file_exclude_patterns": ["*.sublime*"],
+			"file_exclude_patterns": ["*.out"],
+			"file_exclude_patterns": ["Makefile"],
+			"file_exclude_patterns": ["game"]
 		}
 	]
 }
