@@ -1,4 +1,4 @@
-#include "gameoflife.h"
+#include "gameoflife.hpp"
 
 
 game* game::pGame;

@@ -1,4 +1,4 @@
-#include "gameoflife.h"
+#include "gameoflife.hpp"
 
 cfg* cfg::pCfg;
 cfg::cfg(){
@@ -58,7 +58,7 @@ void cfg::save(){}//TODO save configs in file
 void cfg::optionScreen(){
 	optMenu menu;
 	menu.add_button_toogle("Edit cells manually","Stop manual editting",cfg::config()->editting);
-	menu.add_button_select("Load a cell map from a file",getArqNames("./patterns/",".life"),&game::readArq);
+	menu.add_button_select(string("Load a cell map from a file"),getArqNames("./patterns/",".life"),&game::readArq);
 	menu.add_button_write ("Save current cell map to a file",checkValidPatternName,game::jogo()->*saveArq);
 	menu.add_button       ("Configs",cfg::config()->*configScreen);
 	menu.add_button       ("Quit",quit);

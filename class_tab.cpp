@@ -1,4 +1,4 @@
-#include "gameoflife.h"
+#include "gameoflife.hpp"
 
 
 tab::tab():lar{-1},alt{-1},cont{-1},v{NULL}{}

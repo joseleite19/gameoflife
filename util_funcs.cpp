@@ -1,4 +1,4 @@
-#include "gameoflife.h"
+#include "gameoflife.hpp"
 
 void clear(){
 	system("clear || cls");
@@ -147,4 +147,3 @@ string getchLine(){//le um caracter da entrada padrão sem o bloqueio de entrada
 	}
 	return s;
 }
-
