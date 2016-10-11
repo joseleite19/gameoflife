@@ -147,3 +147,20 @@ string getchLine(){//le um caracter da entrada padrão sem o bloqueio de entrada
 	}
 	return s;
 }
+
+void readArq(const string& s){
+	game::jogo()->readArq(s);
+}
+
+void saveArq(const string& s){
+	game::jogo()->saveArq(s);
+}
+
+void openConfigScreen(){
+	cfg::config()->configScreen();
+}
+
+void openOptionScreen(){
+	cfg::config()->optionScreen();
+}
+

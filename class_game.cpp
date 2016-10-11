@@ -53,6 +53,9 @@ void game::readArq(const string &arqName){
 	}
 	else printf("Erro ao ler arquivo...\n");
 }
+void game::saveArq(const string &arqName){
+	//TODO
+}
 bool game::isAlive(int x,int y){
 	return board.v[x][y];
 }

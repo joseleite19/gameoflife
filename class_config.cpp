@@ -57,11 +57,19 @@ bool cfg::load(string arqName){return false;}//TODO load configs from file
 void cfg::save(){}//TODO save configs in file
 void cfg::optionScreen(){
 	optMenu menu;
+	function<void(const string&)> temp1;
+	function<bool(const string&)> temp2;
+	function<void()> temp3;
 	menu.add_button_toogle("Edit cells manually","Stop manual editting",cfg::config()->editting);
-	menu.add_button_select(string("Load a cell map from a file"),getArqNames("./patterns/",".life"),&game::readArq);
-	menu.add_button_write ("Save current cell map to a file",checkValidPatternName,game::jogo()->*saveArq);
-	menu.add_button       ("Configs",cfg::config()->*configScreen);
-	menu.add_button       ("Quit",quit);
+	temp1 = readArq;
+	menu.add_button_select("Load a cell map from a file",getArqNames("./patterns/",".life"),temp1);
+	temp1 = saveArq;
+	temp2 = checkValidPatternName;
+	menu.add_button_write ("Save current cell map to a file",temp2,temp1);
+	temp3 = openConfigScreen;
+	menu.add_button       ("Configs",temp3);
+	temp3 = quit;
+	menu.add_button       ("Quit",temp3);
 }
 void cfg::configScreen(){}//TODO screen to change configs
 void cfg::sleep(){

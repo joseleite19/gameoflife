@@ -122,6 +122,7 @@ class game{
 		tab board;
 		short int ruleStringToInt(string);
 		void readArq(const string&);
+		void saveArq(const string&);
 		bool isAlive(int,int);
 		bool willSurvive(int,int,int);
 		bool willBeBorn(int,int,int);
@@ -132,48 +133,50 @@ class game{
 
 class menu_opt{
 	public:
+		menu_opt();
 		string s;
-		virtual void print(int);
+		virtual void print(bool);
 		virtual void click();
 };
-class menu_opt_toogle : menu_opt{
+class menu_opt_toogle : public menu_opt{
 	public:
-		menu_opt_toogle(const string&,const string&,int&);
+		menu_opt_toogle(string,string,int&);
 		string s2;
-		bool& val;
+		int& val;
 		virtual void click();
-		virtual void print(int);
+		virtual void print(bool);
 };
-class menu_opt_select : menu_opt{
+class menu_opt_select : public menu_opt{
 	public:
-		menu_opt_select(const string,const vector<string>&,void(game::*)(const string&));
-		bool selected;
-		const vector<string>& v;
-		void (*func)(const string&);
-		virtual void print(int);
-		virtual void click();
-};
-class menu_opt_write : menu_opt{
-	public:
-		menu_opt_write(const string,bool(const string),void(const string&));
-		virtual void print();
+		menu_opt_select(string,vector<string>&,function<void(const string&)>);
+		int selected;
+		vector<string>& v;
+		void (*func)(string&);
+		virtual void print(bool);
 		virtual void click();
 };
-class menu_opt_button : menu_opt{
+class menu_opt_write : public menu_opt{
 	public:
-		menu_opt_button(const string,void());
+		menu_opt_write(string,function<bool(string)>,function<void(const string&)>);
+		virtual void print(bool);
+		virtual void click();
+};
+class menu_opt_button : public menu_opt{
+	public:
+		menu_opt_button(string,function<void()>);
 		void *func();
-		virtual void print();
+		virtual void print(bool);
 		virtual void click();
 };
 
 class optMenu{
 	public:
+		~optMenu();
 		list<menu_opt*> options;
 		int selected;
 		void add_button_toogle(string,string,int&);
-		void add_button_select(string,vector<string>&,function<void(const string&)>);
-		void add_button_write (string,function<bool(string)>,function<void(string)>);
+		void add_button_select(string,vector<string>,function<void(const string&)>);
+		void add_button_write (string,function<bool(string)>,function<void(const string&)>);
 		void add_button       (string,function<void()>);
 		void print();
 };
@@ -198,5 +201,9 @@ bool kbhit();								//checa se existe algo na entrada padrão
 char getch();								//le um caracter da entrada padrão sem o bloqueio de entrada(nao necessita apertar enter)
 string getchAll();							//le um caracter da entrada padrão sem o bloqueio de entrada até a entrada estar vazia(nao necessita apertar enter)
 string getchLine();							//le um caracter da entrada padrão sem o bloqueio de entrada até a entrada estar vazia ou até a quebra de linha(nao necessita apertar enter)
+void readArq(const string&);
+void saveArq(const string&);
+void openConfigScreen();
+void openOptionScreen();
 
 #endif	
