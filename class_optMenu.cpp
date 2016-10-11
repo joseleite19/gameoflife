@@ -2,7 +2,13 @@
 
 
 optMenu::~optMenu(){
-	for(auto i:options)delete[] i;
+	cout << "optMenu destructor begin" << endl;
+	FOR(i,options.size()){
+		cout << "deleting " << i << endl;
+		cout << options[i] << endl;
+		delete[] options[i];
+	}
+	cout << "optMenu destructor end" << endl;
 }
 
 void optMenu::add_button_toogle(string s,string s2,int& val){

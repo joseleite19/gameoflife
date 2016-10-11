@@ -177,7 +177,7 @@ class menu_opt_button : public menu_opt{
 class optMenu{
 	public:
 		~optMenu();
-		list<menu_opt*> options;
+		vector<menu_opt*> options;
 		int selected;
 		void add_button_toogle(string,string,int&);
 		void add_button_select(string,vector<string>,function<void(const string&)>);

@@ -56,6 +56,7 @@ void cfg::defConfig(){
 bool cfg::load(string arqName){return false;}//TODO load configs from file
 void cfg::save(){}//TODO save configs in file
 void cfg::optionScreen(){
+	cout << endl <<  "optionScreen begin" << endl;
 	optMenu menu;
 	function<void(const string&)> temp1;
 	function<bool(const string&)> temp2;
@@ -70,6 +71,7 @@ void cfg::optionScreen(){
 	menu.add_button       ("Configs",temp3);
 	temp3 = quit;
 	menu.add_button       ("Quit",temp3);
+	cout << "optionScreen end" << endl;
 }
 void cfg::configScreen(){}//TODO screen to change configs
 void cfg::sleep(){
