@@ -2,15 +2,12 @@
 #define GAMEOFLIFE_HEADER
 
 
-
 #include <bits/stdc++.h>
 #include <unistd.h>
 #include <termios.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
 using namespace std;
-
-
 
 
 #define MAX_SPEED 1000
@@ -73,13 +70,13 @@ using namespace std;
 
 
 
-struct cfg{
-	private:
-		cfg();
-		~cfg();
+class cfg{
+	cfg();
+	~cfg();
 	public:
 		static cfg* pCfg;
 		static cfg* config();
+		int editting;
 		int speed;
 		int curX,curY;
 		int cursorX,cursorY;
@@ -89,33 +86,35 @@ struct cfg{
 		string move[4],moveCursor[4];
 		string next,pause,speedUp,speedDown;
 		string nextx10,speedUpx10,speedDownx10;
-		string configKey;
+		string optionKey;
 		void defConfig();
 		bool load(string);
 		void save();
+		void optionScreen();
 		void configScreen();
 		void sleep();
 		void moveCamera(int);
 		void moveCurs(int);
 };
-struct tab{
-	int lar,alt,cont;
-	char** v;
-	tab();
-	tab(int,int);
-	~tab();
-	void allocBoard();
-	void deallocBoard();
-	void operator=(const tab&);
-	bool operator==(const tab&)const;
-	int neigh(int,int);
-	void print();
-	void randomize();
+
+class tab{
+	public:
+		int lar,alt,cont;
+		char** v;
+		tab();
+		tab(int,int);
+		~tab();
+		void allocBoard();
+		void deallocBoard();
+		void operator=(const tab&);
+		bool operator==(const tab&)const;
+		int neigh(int,int);
+		void print();
+		void randomize();
 };
-struct game{
-	private:
-		game();
-		~game();
+class game{
+	game();
+	~game();
 	public:
 		static game* pGame;
 		static game* jogo();
@@ -131,6 +130,53 @@ struct game{
 		void randomize();
 };
 
+class menu_opt{
+	public:
+		menu_opt(string &s);
+		string s;
+		virtual void print(int);
+		virtual void click();
+};
+class menu_opt_toogle : menu_opt{
+	public:
+		menu_opt_toogle(const string&,const string&,int&);
+		string s2;
+		bool& val;
+		virtual void click();
+		virtual void print(int);
+};
+class menu_opt_select : menu_opt{
+	public:
+		menu_opt_select(const string,const vector<string>&,void(game::*)(const string&));
+		bool selected;
+		const vector<string>& v;
+		void (*func)(const string&);
+		virtual void print(int);
+		virtual void click();
+};
+class menu_opt_write : menu_opt{
+	public:
+		menu_opt_write(const string,bool(const string),void(const string&));
+		virtual void print();
+		virtual void click();
+};
+class menu_opt_button : menu_opt{
+	public:
+		menu_opt_button(const string,void());
+		void *func();
+		virtual void print();
+		virtual void click();
+};
 
+class optMenu{
+	public:
+		list<menu_opt*> options;
+		int selected;
+		void add_button_toogle(const string,const string,int&);
+		void add_button_select(const string,const vector<string>&,void(const string));
+		void add_button_write (const string,bool(const string),void(const string));
+		void add_button       (const string,void());
+		void print();
+};
 
 #endif	

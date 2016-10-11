@@ -64,29 +64,40 @@ void tab::print(){
 	int scrAlt=w.ws_row;
 	FOR(i,(scrAlt-cfg::config()->screenAlt-2)/2)printf("\n");
 	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	changeBGcolor(COLOR_YELLOW);
 	printf("┌");
 	FOR(i,cfg::config()->screenLar/2)printf("──");
-	printf("┐\n");
-	FOR(j,cfg::config()->screenAlt){
+	printf("┐");
+	resetColor();
+	printf("\n");
+	FOR(j,MIN(cfg::config()->screenAlt,scrAlt-12)){
 		FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+		changeBGcolor(COLOR_YELLOW);
 		printf("│");
-		FOR(i,cfg::config()->screenLar/2){
+		resetColor();
+		FOR(i,MIN(cfg::config()->screenLar/2,scrLar-20)){
 			int xx=(cfg::config()->curX+i)%lar;
 			int yy=(cfg::config()->curY+j)%alt;
-			if     (!xx && yy==alt-1)printf("\x1b[%dm",40+COLOR_BRED);
-			else if(!xx || yy==alt-1)printf("\x1b[%dm",40+COLOR_BBLUE);
-			printf("\x1b[%dm",30+cfg::config()->color[(int)(v[xx][yy])%10]);
+			if     (!xx && yy==alt-1)changeBGcolor(COLOR_BRED);
+			else if(!xx || yy==alt-1)changeBGcolor(COLOR_BBLUE);
+			else					 changeBGcolor(COLOR_GREEN);
+			changeFGcolor(cfg::config()->color[(int)(v[xx][yy])%10]);
 			if(v[xx][yy])printf("%d ",v[xx][yy]);
 			else       printf(". ");
-			printf("\x1b[0m");
+			resetColor();
 		}
-		printf("│\n");
+		changeBGcolor(COLOR_YELLOW);
+		printf("│");
+		resetColor();
+		printf("\n");
 	}
 	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	changeBGcolor(COLOR_YELLOW);
 	printf("└");
 	FOR(i,cfg::config()->screenLar/2)printf("──");
-	printf("┘\n");
-	printf("\n");
+	printf("┘");
+	resetColor();
+	printf("\n\n");
 	FOR(i,(scrAlt-cfg::config()->screenAlt-2)/2)printf("\n");
 };
 void tab::randomize(){

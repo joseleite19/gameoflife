@@ -14,7 +14,7 @@ game::game(){
 game::~game(){
 	delete[] pGame;
 	pGame=NULL;
-}
+}	
 game* game::jogo(){
 	if(!pGame)return pGame=new game;
 	return pGame;
@@ -29,7 +29,7 @@ short int game::ruleStringToInt(string s){
 	return x;
 }
 void game::readArq(const string &arqName){
-	printf("Reading arquive named \"%s\"\n",arqName.c_str());
+	printf("Reading file named \"%s\"\n",arqName.c_str());
 	string line;
 	char c;
 	int lar,alt;
