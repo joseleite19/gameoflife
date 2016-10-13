@@ -4,49 +4,105 @@
 menu_opt::menu_opt(){}
 menu_opt::~menu_opt(){}
 
-menu_opt_toogle::menu_opt_toogle(string s,string s2,int& v):val{v}{
-
-}
+menu_opt_toogle::menu_opt_toogle(string str,string str2,int& v):
+	s2{str2},val{v}{s=str;}
 menu_opt_toogle::~menu_opt_toogle(){}
-void menu_opt_toogle::click(){
-
+void menu_opt_toogle::click(optMenu &menu){
+	val = (val+1)%2;
 }
 void menu_opt_toogle::print(bool selected){
-
+	if(selected)changeBGcolor(COLOR_BBLACK);
+	if(val)printf("%s",s2.c_str());
+	else   printf("%s",s.c_str());
+	resetColor();
+	printf("\n");
 }
 
 
-menu_opt_select::menu_opt_select(string s,vector<string> &opts,function<void(const string&)> func):v{opts}{
-
-}
+menu_opt_select::menu_opt_select(string str,vector<string> &opts,function<void(const string&)> f):
+	select{-1},v{opts}{s=str;func=f;}
 menu_opt_select::~menu_opt_select(){}
-void menu_opt_select::click(){
-
+void menu_opt_select::click(optMenu &menu){
+	string in;
+	select*=-1;
+	while(1){
+		clear();
+		menu.print();
+		in = getchLine();
+		if(in==KEY_UP)select=MAX(1,select-1);
+		else if(in==KEY_DOWN)select=MIN((int)v.size(),select+1);
+		else if(in==KEY_ESC)break;
+		else if(in=="\n"){
+			func(v[select-1]);
+			break;
+		}
+	}
+	select*=-1;
 }
 void menu_opt_select::print(bool selected){
-
+	if(selected)changeBGcolor(COLOR_BBLACK);
+	printf("%s",s.c_str());
+	resetColor();
+	printf("\n");
+	if(select>0){
+		FOR(i,v.size()){
+			if(selected && select-1==i)changeBGcolor(COLOR_BBLACK);
+			printf("	%s",v[i].c_str());
+			resetColor();
+			printf("\n");
+		}
+	}
 }
 
 
-menu_opt_write::menu_opt_write(string s,function<bool(string)> checkFunc,function<void(const string&)> func){
-
-}
+menu_opt_write::menu_opt_write(string str,string str3,function<bool(string)> check,function<void(const string&)> f):
+	s2{""},s3{str3}{s=str;checkFunc=check;func=f;}
 menu_opt_write::~menu_opt_write(){}
-void menu_opt_write::click(){
-	
+void menu_opt_write::click(optMenu &menu){
+	char c;
+	while(1){
+		c = getch();
+		if(c=='\x1b')return;//esc
+		if(c=='\n'){
+			if(s2=="")continue;
+			if(checkFunc(s2)){
+				func(s2);
+				getchar();
+				return;
+			}
+			else{
+				printf("%s\n",s3.c_str());
+				s2="";
+				getchar();
+			}
+		}
+		else s2+=c;
+		clear();
+		menu.print();
+	}
 }
 void menu_opt_write::print(bool selected){
-	
+	if(selected)changeBGcolor(COLOR_BBLACK);
+	printf("%s",s.c_str());
+	resetColor();
+	printf("\n");
+	if(selected && s2!=""){
+		changeBGcolor(COLOR_BBLACK);
+		printf("	%s",s2.c_str());
+		resetColor();
+		printf("\n");
+	}
 }
 
 
-menu_opt_button::menu_opt_button(string s,function<void()> func){
-
-}
+menu_opt_button::menu_opt_button(string str,function<void()> f){s=str;func=f;}
 menu_opt_button::~menu_opt_button(){}
-void menu_opt_button::click(){
-
+void menu_opt_button::click(optMenu &menu){
+	func();
 }
 void menu_opt_button::print(bool selected){
-
+	if(selected)changeBGcolor(COLOR_BBLACK);
+	printf("%s",s.c_str());
+	resetColor();
+	printf("\n");
 }

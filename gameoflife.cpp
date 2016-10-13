@@ -41,7 +41,7 @@ int main(){
 			}
 			game::jogo()->next();
 		}
-		else if(in == cfg::config()->pause){
+		else if(in == cfg::config()->pauseKey){
 			cfg::config()->speed *= -1;
 		}
 		else if(in == cfg::config()->speedUp){
@@ -81,6 +81,7 @@ int main(){
 			cfg::config()->moveCurs(3);
 		}
 		else if(in == cfg::config()->optionKey){
+			cfg::config()->pause();
 			cfg::config()->optionScreen();
 		}
 	}

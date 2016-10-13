@@ -21,7 +21,7 @@ void cfg::defConfig(){
 	cursorY			= 0;
 	dead			= ".";
 	alive			= "#";
-	pause			= " ";
+	pauseKey		= " ";
 	optionKey		= KEY_ESC;
 	next			= KEY_RIGHT;
 	speedUp			= KEY_UP;
@@ -56,22 +56,30 @@ void cfg::defConfig(){
 bool cfg::load(string arqName){return false;}//TODO load configs from file
 void cfg::save(){}//TODO save configs in file
 void cfg::optionScreen(){
-	cout << endl <<  "optionScreen begin" << endl;
 	optMenu menu;
+	string in;
 	function<void(const string&)> temp1;
 	function<bool(const string&)> temp2;
 	function<void()> temp3;
-	menu.add_button_toogle("Edit cells manually","Stop manual editting",cfg::config()->editting);
+	menu.add_button_toogle("Edit cells manually(TODO)","Stop manual editting(TODO)",cfg::config()->editting);
 	temp1 = readArq;
 	menu.add_button_select("Load a cell map from a file",getArqNames("./patterns/",".life"),temp1);
 	temp1 = saveArq;
 	temp2 = checkValidPatternName;
-	menu.add_button_write ("Save current cell map to a file",temp2,temp1);
+	menu.add_button_write ("Save current cell map to a file(TODO)","Invalid file name",temp2,temp1);
 	temp3 = openConfigScreen;
-	menu.add_button       ("Configs",temp3);
+	menu.add_button       ("Configs(TODO)",temp3);
 	temp3 = quit;
-	menu.add_button       ("Quit",temp3);
-	cout << "optionScreen end" << endl;
+	menu.add_button       ("Quit GameOfLife",temp3);
+	while(1){
+		clear();
+		menu.print();
+		in = getchLine();
+		if(in==KEY_UP)menu.selected=MAX(0,menu.selected-1);
+		else if(in==KEY_DOWN)menu.selected=MIN(menu.size()-1,menu.selected+1);
+		else if(in==KEY_ESC)break;
+		else if(in=="\n")menu.click();
+	}
 }
 void cfg::configScreen(){}//TODO screen to change configs
 void cfg::sleep(){
@@ -88,4 +96,7 @@ void cfg::moveCurs(int dir){
 	if(dir==1) cursorX = ((cursorX-1)+game::jogo()->board.lar)%game::jogo()->board.lar;
 	if(dir==2) cursorY = (cursorY+1)%game::jogo()->board.alt;
 	if(dir==3) cursorX = (cursorX+1)%game::jogo()->board.lar;
+}
+void cfg::pause(){
+	speed = ABS(speed)*-1;
 }

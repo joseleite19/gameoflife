@@ -84,7 +84,7 @@ class cfg{
 		int color[10];
 		string dead,alive;
 		string move[4],moveCursor[4];
-		string next,pause,speedUp,speedDown;
+		string next,pauseKey,speedUp,speedDown;
 		string nextx10,speedUpx10,speedDownx10;
 		string optionKey;
 		void defConfig();
@@ -95,6 +95,7 @@ class cfg{
 		void sleep();
 		void moveCamera(int);
 		void moveCurs(int);
+		void pause();
 };
 
 class tab{
@@ -131,59 +132,67 @@ class game{
 		void randomize();
 };
 
+class optMenu;
+
 class menu_opt{
 	public:
 		menu_opt();
-		~menu_opt();
+		virtual ~menu_opt();
 		string s;
 		virtual void print(bool)=0;
-		virtual void click()=0;
+		virtual void click(optMenu&)=0;
 };
 class menu_opt_toogle : public menu_opt{
 	public:
 		menu_opt_toogle(string,string,int&);
-		~menu_opt_toogle();
+		virtual ~menu_opt_toogle();
 		string s2;
 		int& val;
-		virtual void click();
+		virtual void click(optMenu&);
 		virtual void print(bool);
 };
 class menu_opt_select : public menu_opt{
 	public:
 		menu_opt_select(string,vector<string>&,function<void(const string&)>);
-		~menu_opt_select();
-		int selected;
-		vector<string>& v;
-		void (*func)(string&);
+		virtual ~menu_opt_select();
+		int select;
+		vector<string> v;
+		function<void(string)> func;
 		virtual void print(bool);
-		virtual void click();
+		virtual void click(optMenu&);
 };
 class menu_opt_write : public menu_opt{
 	public:
-		menu_opt_write(string,function<bool(string)>,function<void(const string&)>);
-		~menu_opt_write();
+		menu_opt_write(string,string,function<bool(string)>,function<void(const string&)>);
+		string s2,s3;
+		function<bool(string)> checkFunc;
+		function<void(string)> func;
+		virtual ~menu_opt_write();
 		virtual void print(bool);
-		virtual void click();
+		virtual void click(optMenu&);
 };
 class menu_opt_button : public menu_opt{
 	public:
 		menu_opt_button(string,function<void()>);
-		~menu_opt_button();
-		void *func();
+		virtual ~menu_opt_button();
+		function<void()> func;
 		virtual void print(bool);
-		virtual void click();
+		virtual void click(optMenu&);
 };
 
 class optMenu{
 	public:
+		optMenu();
 		~optMenu();
 		vector<menu_opt*> options;
 		int selected;
 		void add_button_toogle(string,string,int&);
 		void add_button_select(string,vector<string>,function<void(const string&)>);
-		void add_button_write (string,function<bool(string)>,function<void(const string&)>);
+		void add_button_write (string,string,function<bool(string)>,function<void(const string&)>);
 		void add_button       (string,function<void()>);
 		void print();
+		void click();
+		int size();
 };
 
 

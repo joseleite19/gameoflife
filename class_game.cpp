@@ -4,7 +4,7 @@
 game* game::pGame;
 game::game(){
 	int l=62,a=29;
-	string survive="23", born="2";
+	string survive="23", born="3";
 
 	rS=ruleStringToInt(survive);
 	rB=ruleStringToInt(born);
@@ -54,7 +54,23 @@ void game::readArq(const string &arqName){
 	else printf("Erro ao ler arquivo...\n");
 }
 void game::saveArq(const string &arqName){
-	//TODO
+	printf("Saving to file named \"%s\"\n",arqName.c_str());
+	ofstream arq;
+	arq.open("./patterns/" + arqName + ".life");
+	if(arq.is_open()){
+		arq << board.lar << board.alt << "\n#\n";
+		FOR(j,board.alt){
+			FOR(i,board.lar){
+				if(board.v[i][j])arq << "#";
+				else			 arq << "-";
+			}
+			arq << endl;
+		}
+		arq.close();
+		printf("Arquivo salvo com sucesso.\n");
+		usleep(20000);
+	}
+	else printf("Erro ao ler arquivo...\n");
 }
 bool game::isAlive(int x,int y){
 	return board.v[x][y];
@@ -70,7 +86,10 @@ void game::next(){
 	FOR(i,board.lar){
 		FOR(j,board.alt){
 			int neigh=board.neigh(i,j);
-			if((isAlive(i,j) && willSurvive(i,j,neigh)) || willBeBorn(i,j,neigh)){
+			if((isAlive(i,j) && willSurvive(i,j,neigh)) || (!isAlive(i,j) && willBeBorn(i,j,neigh))){
+				if((isAlive(i,j) && willSurvive(i,j,neigh)))cout << i << " " << j << " alive and survive" << endl;
+				if((!isAlive(i,j) && willBeBorn(i,j,neigh)))cout << i << " " << j << " dead and born" << endl;
+				//cout << "survive = " << rS << " born = " << rB << " neigh = " << neigh << endl;
 				nxt.v[i][j]=neigh+1;
 				nxt.cont++;
 			}
