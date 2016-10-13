@@ -245,5 +245,6 @@ void readArq(const string&);
 void saveArq(const string&);
 void openConfigScreen();
 void openOptionScreen();
+string keyToStr(string);
 
 #endif	

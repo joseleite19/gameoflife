@@ -1,5 +1,21 @@
 #include "gameoflife.hpp"
 
+void printBorders(){
+	struct winsize w;
+	ioctl(0, TIOCGWINSZ, &w);
+	int scrLar=w.ws_col;
+	//int scrAlt=w.ws_row;
+	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	changeBGcolor(COLOR_GREEN); FOR(i,(cfg::config()->screenLar))printf(" ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	resetColor();
+	printf("\r");
+	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	printf("	");
+	changeBGcolor(COLOR_GREEN);
+}
+
 
 menu_opt::menu_opt(){}
 menu_opt::~menu_opt(){}
@@ -11,6 +27,7 @@ void menu_opt_toogle::click(optMenu &menu){
 	val = (val+1)%2;
 }
 void menu_opt_toogle::print(bool selected){
+	printBorders();
 	if(selected)changeBGcolor(COLOR_BBLACK);
 	if(val)printf("%s",s2.c_str());
 	else   printf("%s",s.c_str());
@@ -40,12 +57,14 @@ void menu_opt_select::click(optMenu &menu){
 	select*=-1;
 }
 void menu_opt_select::print(bool selected){
+	printBorders();
 	if(selected)changeBGcolor(COLOR_BBLACK);
 	printf("%s",s.c_str());
 	resetColor();
 	printf("\n");
 	if(select>0){
 		FOR(i,v.size()){
+			printBorders();
 			if(selected && select-1==i)changeBGcolor(COLOR_BBLACK);
 			printf("	%s",v[i].c_str());
 			resetColor();
@@ -88,11 +107,13 @@ void menu_opt_write::click(optMenu &menu){
 	}
 }
 void menu_opt_write::print(bool selected){
+	printBorders();
 	if(selected)changeBGcolor(COLOR_BBLACK);
 	printf("%s",s.c_str());
 	resetColor();
 	printf("\n");
 	if(selected && s2!=""){
+		printBorders();
 		changeBGcolor(COLOR_BBLACK);
 		printf("	%s",s2.c_str());
 		resetColor();
@@ -107,6 +128,7 @@ void menu_opt_button::click(optMenu &menu){
 	func();
 }
 void menu_opt_button::print(bool selected){
+	printBorders();
 	if(selected)changeBGcolor(COLOR_BBLACK);
 	printf("%s",s.c_str());
 	resetColor();

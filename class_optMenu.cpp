@@ -28,9 +28,59 @@ void optMenu::add_button       (string s,function<void()> func){
 
 void optMenu::print(){
 	int cont=0;
+	struct winsize w;
+	ioctl(0, TIOCGWINSZ, &w);
+	int scrLar=w.ws_col;
+	int scrAlt=w.ws_row;
+
+	FOR(i,(scrAlt-cfg::config()->screenAlt-2)/2)printf("\n");
+
+	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	changeBGcolor(COLOR_YELLOW);
+	printf("┌");FOR(i,cfg::config()->screenLar/2)printf("──");printf("┐");
+	resetColor();
+	printf("\n");
+
+	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	changeBGcolor(COLOR_GREEN);FOR(i,cfg::config()->screenLar/2)printf("  ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	resetColor();
+	printf("\n");
+
+	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	changeBGcolor(COLOR_GREEN);FOR(i,cfg::config()->screenLar/2)printf("  ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	resetColor();
+	printf("\n");
+
 	for(auto i:options){
 		i->print(selected==cont++);
 	}
+
+
+	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	changeBGcolor(COLOR_GREEN);FOR(i,cfg::config()->screenLar/2)printf("  ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	resetColor();
+	printf("\n");
+
+	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	changeBGcolor(COLOR_GREEN);FOR(i,cfg::config()->screenLar/2)printf("  ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	resetColor();
+	printf("\n");
+
+	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	changeBGcolor(COLOR_YELLOW);
+	printf("└");FOR(i,cfg::config()->screenLar/2)printf("──");printf("┘");
+	resetColor();
+	printf("\n\n");
+
+	FOR(i,(scrAlt-cfg::config()->screenAlt-2)/2)printf("\n");
 }
 
 int optMenu::size(){
