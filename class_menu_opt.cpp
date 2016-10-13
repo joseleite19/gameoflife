@@ -59,14 +59,20 @@ menu_opt_write::menu_opt_write(string str,string str3,function<bool(string)> che
 	s2{""},s3{str3}{s=str;checkFunc=check;func=f;}
 menu_opt_write::~menu_opt_write(){}
 void menu_opt_write::click(optMenu &menu){
-	char c;
+	string s;
+	s2=" ";
+	clear();
+	menu.print();
+	s2="";
 	while(1){
-		c = getch();
-		if(c=='\x1b')return;//esc
-		if(c=='\n'){
+		s = getchLine();
+		if(s==KEY_ESC)return;
+		else if(s==KEY_BCKSP)s2.pop_back();
+		else if(s=="\n"){
 			if(s2=="")continue;
 			if(checkFunc(s2)){
 				func(s2);
+				s2="";
 				getchar();
 				return;
 			}
@@ -76,7 +82,7 @@ void menu_opt_write::click(optMenu &menu){
 				getchar();
 			}
 		}
-		else s2+=c;
+		else s2+=s;
 		clear();
 		menu.print();
 	}

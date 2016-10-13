@@ -40,7 +40,7 @@ using namespace std;
 
 
 #define KEY_ESC			"\x1b"
-#define KEY_BCKSP		"\x1b["
+#define KEY_BCKSP		"\x7f"
 #define KEY_UP			"\x1b[A"
 #define KEY_LEFT		"\x1b[D"
 #define KEY_DOWN		"\x1b[B"
@@ -68,7 +68,33 @@ using namespace std;
 #define KEY_F11			"\x1b[21~"
 #define KEY_F12			"\x1b[24~"
 
-
+const pair<string,string> key_str[] = {
+	{KEY_ESC,		"ESC"},
+	{KEY_BCKSP,		"Backspace"},
+	{KEY_UP,		"↑"},
+	{KEY_LEFT,		"←"},
+	{KEY_DOWN,		"↓"},
+	{KEY_RIGHT,		"→"},
+	{KEY_S_UP,		"Shift + ↑"},
+	{KEY_S_LEFT,	"Shift + ←"},
+	{KEY_S_DOWN,	"Shift + ↓"},
+	{KEY_S_RIGHT,	"Shift + →"},
+	{KEY_PAGE_UP,	"Page Up"},
+	{KEY_PAGE_DOWN,	"Page Down"},
+	{KEY_END,		"END"},
+	{KEY_F1,		"F1"},
+	{KEY_F2,		"F2"},
+	{KEY_F3,		"F3"},
+	{KEY_F4,		"F4"},
+	{KEY_F5,		"F5"},
+	{KEY_F6,		"F6"},
+	{KEY_F7,		"F7"},
+	{KEY_F8,		"F8"},
+	{KEY_F9,		"F9"},
+	{KEY_F10,		"F10"},
+	{KEY_F11,		"F11"},
+	{KEY_F12,		"F12"},
+};
 
 class cfg{
 	cfg();

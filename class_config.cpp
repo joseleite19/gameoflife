@@ -58,19 +58,19 @@ void cfg::save(){}//TODO save configs in file
 void cfg::optionScreen(){
 	optMenu menu;
 	string in;
-	function<void(const string&)> temp1;
-	function<bool(const string&)> temp2;
-	function<void()> temp3;
+	function<void(const string&)> func1;
+	function<bool(const string&)> func2;
+	function<void()> func3;
 	menu.add_button_toogle("Edit cells manually(TODO)","Stop manual editting(TODO)",cfg::config()->editting);
-	temp1 = readArq;
-	menu.add_button_select("Load a cell map from a file",getArqNames("./patterns/",".life"),temp1);
-	temp1 = saveArq;
-	temp2 = checkValidPatternName;
-	menu.add_button_write ("Save current cell map to a file(TODO)","Invalid file name",temp2,temp1);
-	temp3 = openConfigScreen;
-	menu.add_button       ("Configs(TODO)",temp3);
-	temp3 = quit;
-	menu.add_button       ("Quit GameOfLife",temp3);
+	func1 = readArq;
+	menu.add_button_select("Load a cell map from a file",getArqNames("./patterns/",".life"),func1);
+	func1 = saveArq;
+	func2 = checkValidPatternName;
+	menu.add_button_write ("Save current cell map to a file","Invalid file name",func2,func1);
+	func3 = openConfigScreen;
+	menu.add_button       ("Configs(TODO)",func3);
+	func3 = quit;
+	menu.add_button       ("Quit GameOfLife",func3);
 	while(1){
 		clear();
 		menu.print();

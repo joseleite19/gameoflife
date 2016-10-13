@@ -58,7 +58,7 @@ void game::saveArq(const string &arqName){
 	ofstream arq;
 	arq.open("./patterns/" + arqName + ".life");
 	if(arq.is_open()){
-		arq << board.lar << board.alt << "\n#\n";
+		arq << board.lar << " " << board.alt << "\n#\n";
 		FOR(j,board.alt){
 			FOR(i,board.lar){
 				if(board.v[i][j])arq << "#";

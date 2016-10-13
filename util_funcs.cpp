@@ -164,3 +164,9 @@ void openOptionScreen(){
 	cfg::config()->optionScreen();
 }
 
+string keyToStr(string key){
+	for(auto i:key_str){
+		if(key==i.first)return i.second;
+	}
+	return key;
+}
