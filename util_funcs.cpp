@@ -1,12 +1,28 @@
-#include "gameoflife.h"
+#include "gameoflife.hpp"
 
 void clear(){
 	system("clear || cls");
 }
 
-int readIntInRange(int a,int b){//le um inteiro entre a e b
+void changeFGcolor(int x){
+	printf("\x1b[%dm",30+x);
+}
+
+void changeBGcolor(int x){
+	printf("\x1b[%dm",40+x);
+}
+
+void resetColor(){
+	printf("\x1b[0m");
+}
+
+void quit(){
+	exit(0);
+}
+
+int readIntInRange(int a, int b){//le um inteiro entre a e b
 	int x;
-	if(a==b){//a até infinito
+	if(a == b){//a até infinito
 		while(1){
 			x=a-1;
 			scanf(" %d",&x);
@@ -30,6 +46,22 @@ int readIntInRange(int a,int b){//le um inteiro entre a e b
 	}
 }
 
+vector<string> getArqNames(string dir,string ext){
+	ifstream arq;
+	vector<string> s;
+	string line,out = "ls " + dir + " > " + dir + "arqs.txt";
+	system(out.c_str());
+	arq.open(dir + "arqs.txt");
+	if(arq.is_open()){
+		while(getline(arq,line)){
+			if(line.substr(line.size()-ext.size())==ext){
+				s.push_back(line.substr(0,line.size()-ext.size()));
+			}
+		}
+	}
+	return s;
+}
+
 vector<string> printArqNames(string dir,string ext){//imprime na tela todos os arquivos com extensão ext no diretório dir
 	ifstream arq;
 	vector<string> s;
@@ -45,6 +77,11 @@ vector<string> printArqNames(string dir,string ext){//imprime na tela todos os a
 		}
 	}
 	return s;
+}
+
+bool checkValidPatternName(string s){
+	vector<string> v=getArqNames("./patterns/",".life");
+	return find(v.begin(),v.end(),s)==v.end();
 }
 
 bool canOpen(string arqName){//checa se é possivel abrir o arquivo
@@ -111,3 +148,25 @@ string getchLine(){//le um caracter da entrada padrão sem o bloqueio de entrada
 	return s;
 }
 
+void readArq(const string& s){
+	game::jogo()->readArq(s);
+}
+
+void saveArq(const string& s){
+	game::jogo()->saveArq(s);
+}
+
+void openConfigScreen(){
+	cfg::config()->configScreen();
+}
+
+void openOptionScreen(){
+	cfg::config()->optionScreen();
+}
+
+string keyToStr(string key){
+	for(auto i:key_str){
+		if(key==i.first)return i.second;
+	}
+	return key;
+}
