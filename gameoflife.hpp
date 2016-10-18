@@ -2,7 +2,16 @@
 #define GAMEOFLIFE_HEADER
 
 
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <functional>
+#include <utility>
+#include <fstream>
+#include <algorithm>
+#include <string.h>
+
 #include <unistd.h>
 #include <termios.h>
 #include <fcntl.h>
