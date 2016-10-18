@@ -156,12 +156,20 @@ void saveArq(const string& s){
 	game::jogo()->saveArq(s);
 }
 
+void readRule(const string& s){
+	game::jogo()->readRule(s);
+}
+
 void openConfigScreen(){
 	cfg::config()->configScreen();
 }
 
 void openOptionScreen(){
 	cfg::config()->optionScreen();
+}
+
+void randomize(){
+	game::jogo()->randomize();
 }
 
 string keyToStr(string key){

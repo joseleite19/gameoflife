@@ -82,8 +82,9 @@ void tab::print(){
 			else if(!xx || yy==alt-1)changeBGcolor(COLOR_BBLUE);
 			else					 changeBGcolor(COLOR_GREEN);
 			changeFGcolor(cfg::config()->color[(int)(v[xx][yy])%10]);
-			if(v[xx][yy])printf("%d ",v[xx][yy]);
-			else       printf(". ");
+			if(v[xx][yy]==10)	printf("# ");
+			else if(v[xx][yy])	printf("%d ",v[xx][yy]);
+			else       			printf(". ");
 			resetColor();
 		}
 		changeBGcolor(COLOR_YELLOW);
@@ -98,14 +99,14 @@ void tab::print(){
 	printf("┘");
 	resetColor();
 	printf("\n\n");
-	FOR(i,(scrAlt-cfg::config()->screenAlt-2)/2)printf("\n");
+	FOR(i,(scrAlt-cfg::config()->screenAlt-10)/2)printf("\n");
 };
 void tab::randomize(){
 	cont=0;
 	FOR(j,alt){
 		FOR(i,lar){
-			v[i][j]=rand()%2;
-			cont+=v[i][j];
+			v[i][j]=(rand()%2)*10;
+			cont+=(v[i][j])/10;
 		}
 	}
 };

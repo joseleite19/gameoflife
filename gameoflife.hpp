@@ -110,7 +110,7 @@ class cfg{
 		int color[10];
 		string dead,alive;
 		string move[4],moveCursor[4];
-		string next,pauseKey,speedUp,speedDown;
+		string next,back,pauseKey,speedUp,speedDown;
 		string nextx10,speedUpx10,speedDownx10;
 		string optionKey;
 		void defConfig();
@@ -147,13 +147,18 @@ class game{
 		static game* jogo();
 		short int rS,rB;
 		tab board;
+		tab prev[11];
+		int prevBegin;//contador usado para guardar a posição de inicio da 'fila' prev.
+		int prevEnd;//contador usado para guardar a posição de fim da 'fila' prev.
 		short int ruleStringToInt(string);
 		void readArq(const string&);
 		void saveArq(const string&);
+		void readRule(const string&);
 		bool isAlive(int,int);
-		bool willSurvive(int,int,int);
-		bool willBeBorn(int,int,int);
+		bool willSurvive(int);
+		bool willBeBorn(int);
 		void next();
+		void back();
 		void print();
 		void randomize();
 };
@@ -243,8 +248,10 @@ string getchAll();							//le um caracter da entrada padrão sem o bloqueio de e
 string getchLine();							//le um caracter da entrada padrão sem o bloqueio de entrada até a entrada estar vazia ou até a quebra de linha(nao necessita apertar enter)
 void readArq(const string&);
 void saveArq(const string&);
+void readRule(const string&);
 void openConfigScreen();
 void openOptionScreen();
 string keyToStr(string);
+void randomize();
 
 #endif	

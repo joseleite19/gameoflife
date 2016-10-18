@@ -24,6 +24,7 @@ void cfg::defConfig(){
 	pauseKey		= " ";
 	optionKey		= KEY_ESC;
 	next			= KEY_RIGHT;
+	back			= KEY_LEFT;
 	speedUp			= KEY_UP;
 	speedDown		= KEY_DOWN;
 	nextx10			= KEY_S_RIGHT;
@@ -67,8 +68,12 @@ void cfg::optionScreen(){
 	func1 = saveArq;
 	func2 = checkValidPatternName;
 	menu.add_button_write ("Save current cell map to a file","Invalid file name",func2,func1);
+	func1 = readRule;
+	menu.add_button_select("Load a new set of rules from a file",getArqNames("./rules/",".rule"),func1);
 	func3 = openConfigScreen;
 	menu.add_button       ("Configs(TODO)",func3);
+	func3 = randomize;
+	menu.add_button       ("Randomize",func3);
 	func3 = quit;
 	menu.add_button       ("Quit GameOfLife",func3);
 	while(1){

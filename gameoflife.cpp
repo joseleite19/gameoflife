@@ -16,11 +16,7 @@ int main(){
 	while(1){
 		clear();
 		game::jogo()->print();
-		cout << "Speed " << ABS(cfg::config()->speed) << endl;
-
-		if(cfg::config()->speed<0) cout << "Paused" << endl;
-		else{
-			cout << endl;
+		if(cfg::config()->speed>=0){
 			cfg::config()->sleep();
 			if(!kbhit()){
 				game::jogo()->next();
@@ -40,6 +36,9 @@ int main(){
 				game::jogo()->print();
 			}
 			game::jogo()->next();
+		}
+		else if(in == cfg::config()->back){
+			game::jogo()->back();
 		}
 		else if(in == cfg::config()->pauseKey){
 			cfg::config()->speed *= -1;
