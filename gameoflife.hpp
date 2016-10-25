@@ -262,5 +262,7 @@ void openConfigScreen();
 void openOptionScreen();
 string keyToStr(string);
 void randomize();
+void changeConfig ();
+void changeGraphs ();
 
 #endif	

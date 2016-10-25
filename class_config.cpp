@@ -70,7 +70,7 @@ void cfg::optionScreen(){
 	func1 = readRule;
 	menu.add_button_select("Load a new set of rules from a file",getArqNames("./rules/",".rule"),func1);
 	func3 = openConfigScreen;
-	menu.add_button       ("Configs(TODO)",func3);
+	menu.add_button       ("Configs",func3);
 	func3 = randomize;
 	menu.add_button       ("Randomize",func3);
 	func3 = quit;

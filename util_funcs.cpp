@@ -183,18 +183,24 @@ void printConfig () {
 	CLEAR;
 	printf( "      ╔══════╗        				      ╔══════╗        \n"
 			"      ║¹     ║        				      ║⁵     ║        \n"
-			"      ║   %c  ║        				      ║   %c  ║        \n"
+			"      ║   ");
+	cout << cfg::config()->move[0];
+	printf( "  ║        				      ║   ");
+	cout << cfg::config()->moveCursor[0];
+	printf( "  ║        \n"
 			"      ║      ║        				      ║      ║        \n"
 			"╔═════╩╦═════╩╦══════╗				╔═════╩╦═════╩╦══════╗\n"
 			"║²     ║³     ║⁴     ║				║⁶     ║⁷     ║⁸     ║\n"
-			"║   %c  ║   %c  ║   %c  ║				║   %c  ║   %c  ║   %c  ║\n"
+			"║   ");
+	cout << cfg::config()->move[1];
+	printf( "  ║   ");cout << cfg::config()->move[2];
+	printf( "  ║   ");cout << cfg::config()->move[3];
+	printf( "  ║				║   ");cout << cfg::config()->moveCursor[1];
+	printf( "  ║   ");cout << cfg::config()->moveCursor[2];
+	printf( "  ║   ");cout << cfg::config()->moveCursor[3];
+	printf( "  ║\n"
 			"║      ║      ║      ║				║      ║      ║      ║\n"
-			"╚══════╩══════╩══════╝				╚══════╩══════╩══════╝\n",
-			cfg::config()->move[0].c_cstr()      , cfg::config()->moveCursor[0].c_cstr(),
-			cfg::config()->move[1].c_cstr()      ,       cfg::config()->move[2].c_cstr(),
-			cfg::config()->move[3].c_cstr()      , cfg::config()->moveCursor[1].c_cstr(),
-			cfg::config()->moveCursor[2].c_cstr(), cfg::config()->moveCursor[3].c_cstr());
-	
+			"╚══════╩══════╩══════╝				╚══════╩══════╩══════╝\n");
 }
 
 void changeConfig () {
@@ -206,9 +212,9 @@ void changeConfig () {
 		in = getchLine();
 		if (in == KEY_ESC) break;
 
-		char foo = in.c_str ();
+		const char * foo = in.c_str ();
 
-		switch (foo) {
+		switch (*foo) {
 			case '1': cfg::config()->move[0]       = getch (); break;
 			case '2': cfg::config()->move[1]       = getch (); break;
 			case '3': cfg::config()->move[2]       = getch (); break;
@@ -222,41 +228,80 @@ void changeConfig () {
 	}
 }
 
-void changeBackGround () {
-	optMenu colourMenu;
-	string in;
-
-	function<void(int)> 
-
+void printBG () {
+	CLEAR;
 	for (int i = 0; i < 10; i++) {
+		cout << "With colour " << i << " the ";
 		changeBGcolor (i);
 		cout << "Background will look like this\n";
 		changeBGcolor (COLOR_DEF);
 	}
 
 	for (int i = 60; i < 68; i++) {
+		cout << "With colour " << i-50 << " the ";
 		changeBGcolor (i);
 		cout << "Background will look like this\n";
 		changeBGcolor (COLOR_DEF);
 	}
 }
 
-void changeCellColour () {
-	optMenu colourMenu;
+void changeBackGround () {
 	string in;
+	while (true) {
+		printBG ();
+		cout << "\n\n\tType the number of the colour of your choice: ";
+		in = getchLine();
 
-	function<void(int)> 
+		if (in == KEY_ESC) break;
+		
+		int c;
+		do {
+			scanf ("%d", &c); getchar ();
+		} while (c < 0 || c > 17);
 
+		//QUAL A VARIÁVEL QUE MUDA A COR DO FUNDO????????????????
+
+	}
+}
+
+void printFG () {
+	CLEAR;
+
+	cout << "\n\n\tAlived cell: \"" << cfg::config()->alive << "\"";
+	cout << "\t\t\tDead cell: \"" << cfg::config()->dead << "\"\n\n";
+	
 	for (int i = 0; i < 10; i++) {
+		cout << "\tWith colour " << i << " the ";
 		changeFGcolor (i);
 		cout << "Cells will look like this\n";
 		changeFGcolor (COLOR_DEF);
 	}
 
 	for (int i = 60; i < 68; i++) {
+		cout << "\tWith colour " << i-50 << " the ";
 		changeFGcolor (i);
 		cout << "Cells will look like this\n";
 		changeFGcolor (COLOR_DEF);
+	}
+}
+
+void changeCellColour () {
+	string in;
+	while (true) {
+		printFG ();
+		cout << "\n\n\tType the number of the colour of your choice: ";
+		in = getchLine();
+
+		if (in == KEY_ESC) break;
+
+		int c;
+		do {
+			scanf ("%d", &c); getchar ();
+		} while (c < 0 || c > 17);
+
+		//QUAL A VARIÁVEL QUE MUDA A COR DA CÉLULA????????????????
+
+
 	}
 }
 
@@ -267,18 +312,18 @@ void changeGraphs () {
 	function<void()> func1;
 	function<void()> func2;
 	func1 = changeBackGround;
+	graphMenu.add_button ("Change background colour", func1);
 	func2 = changeCellColour;
+	graphMenu.add_button ("Change cell colour", func2);
 
 	while (true) {
 		CLEAR;
-		graphMenu.add_button ("Change background colour", func1);
-		graphMenu.add_button ("Change cell colour", func2);
-
+		graphMenu.print ();
 		in = getchLine ();
-		if (in == KEY_ESC) break;
+		if(in==KEY_UP)graphMenu.selected=MAX(0,graphMenu.selected-1);
 		else if(in==KEY_DOWN)graphMenu.selected=MIN(graphMenu.size()-1,graphMenu.selected+1);
-		else if(in==KEY_ESC) break;
-		else if(in=="\n") graphMenu.click();
+		else if(in==KEY_ESC)break;
+		else if(in=="\n")graphMenu.click();
 
 	}
 
