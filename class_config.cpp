@@ -38,7 +38,6 @@ void cfg::defConfig(){
 	moveCursor[1]	= "A";
 	moveCursor[2]	= "S";
 	moveCursor[3]	= "D";
-	//((7*v[xx][yy])%9)
 	color[0]		= COLOR_BLACK;
 	color[1]		= COLOR_WHITE;
 	color[2]		= COLOR_MAGENTA;
@@ -86,22 +85,48 @@ void cfg::optionScreen(){
 		else if(in=="\n")menu.click();
 	}
 }
-void cfg::configScreen(){}//TODO screen to change configs
+
+void cfg::configScreen(){ //TODO screen to change configs
+	optMenu menu;
+	string in;
+	function<void()> func1;
+	function<void()> func2;
+
+	func1 = changeConfig;
+	menu.add_button ("Controls", func1);
+	func2 = changeGraphs;
+	menu.add_button ("Graphics", func2);
+
+	while (1) {
+		clear();
+		menu.print();
+		in = getchLine();
+		if(in==KEY_UP)menu.selected=MAX(0,menu.selected-1);
+		else if(in==KEY_DOWN)menu.selected=MIN(menu.size()-1,menu.selected+1);
+		else if(in==KEY_ESC)break;
+		else if(in=="\n")menu.click();
+	}
+	
+}
+
 void cfg::sleep(){
 	usleep(10000000/(cfg::config()->speed));
 }
+
 void cfg::moveCamera(int dir){
 	if(dir==0) curY = ((curY-1)+game::jogo()->board.alt)%game::jogo()->board.alt;
 	if(dir==1) curX = ((curX-1)+game::jogo()->board.lar)%game::jogo()->board.lar;
 	if(dir==2) curY = (curY+1)%game::jogo()->board.alt;
 	if(dir==3) curX = (curX+1)%game::jogo()->board.lar;
 }
+
 void cfg::moveCurs(int dir){
 	if(dir==0) cursorY = ((cursorY-1)+game::jogo()->board.alt)%game::jogo()->board.alt;
 	if(dir==1) cursorX = ((cursorX-1)+game::jogo()->board.lar)%game::jogo()->board.lar;
 	if(dir==2) cursorY = (cursorY+1)%game::jogo()->board.alt;
 	if(dir==3) cursorX = (cursorX+1)%game::jogo()->board.lar;
 }
+
 void cfg::pause(){
 	speed = ABS(speed)*-1;
 }
