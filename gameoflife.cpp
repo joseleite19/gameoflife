@@ -1,11 +1,5 @@
 #include "gameoflife.hpp"
 
-// #include "class_tab.cpp"
-// #include "class_game.cpp"
-// #include "class_optMenu.cpp"
-// #include "class_config.cpp"
-// #include "class_menu_opt.cpp"
-
 int main(){
 	srand(time(NULL));
 

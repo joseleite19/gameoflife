@@ -1,8 +1,9 @@
 #ifndef GAMEOFLIFE_HEADER
 #define GAMEOFLIFE_HEADER
 
+#include "./include/tab.hpp"
 
-//#include <bits/stdc++.h>
+//#include <bits/stdc++.h> //TODO:  removed for mac-compatibility - not-tested
 #include <iostream>
 #include <vector>
 #include <string>
@@ -29,6 +30,7 @@ using namespace std;
 #define MAX(x,y) (((x)>(y))?(x):( y))
 #define ABS(x)   (((x)> 0 )?(x):-(x))
 
+//Terminal-related codes for UI keybiding and renderization
 #define COLOR_BLACK    0
 #define COLOR_RED      1
 #define COLOR_GREEN    2
@@ -47,8 +49,8 @@ using namespace std;
 #define COLOR_BCYAN    66
 #define COLOR_BWHITE   67
 
-
 #define KEY_ESC			"\x1b"
+#define KEY_ENTER		"\n"
 #define KEY_BCKSP		"\x7f"
 #define KEY_UP			"\x1b[A"
 #define KEY_LEFT		"\x1b[D"
@@ -77,6 +79,7 @@ using namespace std;
 #define KEY_F11			"\x1b[21~"
 #define KEY_F12			"\x1b[24~"
 
+//NOTE: keyCode to keyName lookup table
 const pair<string,string> key_str[] = {
 	{KEY_ESC,		"ESC"},
 	{KEY_BCKSP,		"Backspace"},
@@ -112,17 +115,16 @@ class cfg{
 		static cfg* pCfg;
 		static cfg* config();
 		int editting;
-		int speed;
+		int speed; //TODO: Where speed is set
 		int curX,curY;
 		int cursorX,cursorY;
-		int screenLar,screenAlt;
-		int color[10];
-		string dead,alive;
+		int screenLar,screenAlt; //screenWidth, screenHeight
+		int color[10]; //color-pallete
+		string dead,alive; 
 		string move[4],moveCursor[4];
 		string next,back,pauseKey,speedUp,speedDown;
 		string nextx10,speedUpx10,speedDownx10;
 		string optionKey;
-		void defConfig();
 		bool load(string);
 		void save();
 		void optionScreen();
@@ -131,32 +133,20 @@ class cfg{
 		void moveCamera(int);
 		void moveCurs(int);
 		void pause();
+		
+	private:
+		void defConfig();
 };
 
-class tab{
-	public:
-		int lar,alt,cont;
-		char** v;
-		tab();
-		tab(int,int);
-		~tab();
-		void allocBoard();
-		void deallocBoard();
-		void operator=(const tab&);
-		bool operator==(const tab&)const;
-		int neigh(int,int);
-		void print();
-		void randomize();
-};
 class game{
 	game();
 	~game();
 	public:
 		static game* pGame;
 		static game* jogo();
-		short int rS,rB;
-		tab board;
-		tab prev[11];
+		short int rS,rB;//WARNING: what are those?
+		tab board;//TODO:calculate how much memory does this program uses in function of MAX_UNDO
+		tab prev[11];//add macro MAX_UNDO
 		int prevBegin;//contador usado para guardar a posição de inicio da 'fila' prev.
 		int prevEnd;//contador usado para guardar a posição de fim da 'fila' prev.
 		short int ruleStringToInt(string);
@@ -179,7 +169,7 @@ class menu_opt{
 		menu_opt();
 		virtual ~menu_opt();
 		string s;
-		virtual void print(bool)=0;
+		virtual void print(bool)=0; //not enough clear that a parameter is initialized as zero
 		virtual void click(optMenu&)=0;
 };
 class menu_opt_toogle : public menu_opt{

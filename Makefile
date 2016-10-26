@@ -4,7 +4,7 @@ OBJS = gameoflife.cpp util_funcs.cpp class_config.cpp class_tab.cpp class_game.c
 
 FLAGS = -std=c++11 -Wall -Wno-unused-result -O2
 
-TARGET = game
+TARGET = ./bin/game
 
 all:
 	$(CPP) $(FLAGS) $(OBJS) -o $(TARGET)

@@ -1,13 +1,25 @@
 #include "gameoflife.hpp"
 
+tab::tab(){
+	lar = -1;
+	alt = -1;
+	cont = -1;
+	v = NULL;
+}
 
-tab::tab():lar{-1},alt{-1},cont{-1},v{NULL}{}
-tab::tab(int l,int a):lar{l},alt{a},cont{0}{
+tab::tab(int l, int a){
+	lar = l;
+	alt = a;
+	cont = 0;
+	
 	allocBoard();
 }
+
 tab::~tab(){
 	deallocBoard();
 }
+
+
 void tab::allocBoard(){
 	v=new char*[lar];
 	FOR(i,lar){
@@ -15,10 +27,12 @@ void tab::allocBoard(){
 		memset(v[i],0,alt*sizeof(char));
 	}
 }
+
 void tab::deallocBoard(){
 	FOR(i,lar)delete[] v[i];
 	delete[] v;
 }
+
 void tab::operator=(const tab &other){
 	if(lar!=other.lar || alt!=other.alt){
 		deallocBoard();
@@ -26,24 +40,36 @@ void tab::operator=(const tab &other){
 		lar=other.lar;
 		allocBoard();
 	}
+	
 	FOR(j,alt){
 		FOR(i,lar){
 			v[i][j] = other.v[i][j];
 		}
 	}
+	
 	cont = other.cont;
 }
 bool tab::operator==(const tab &other)const{
-	if(cont!=other.cont)return false;
-	if(lar!=other.lar)return false;
-	if(alt!=other.alt)return false;
+	if (cont != other.cont || lar!=other.lar || alt!=other.alt)
+		return false;
+	
 	FOR(j,alt){
 		FOR(i,lar){
-			if(v[i][j]!=other.v[i][j])return false;
+			if(v[i][j]!=other.v[i][j])
+				return false;
 		}
 	}
+	
 	return true;
 }
+
+/**
+ *  \brief Return the number of neighbors of a given cell
+ *  
+ *  \param [in] x The x position of the cell
+ *  \param [in] y The y position of the cell
+ *  
+ */
 int tab::neigh(int x,int y){
 	int cnt=0;
 	FOR2(i,-1,2){
@@ -56,26 +82,48 @@ int tab::neigh(int x,int y){
 		}
 	}
 	return cnt;
-};
+}
+
+/**
+ *  \brief Draws the board based on the grid cell data.
+ *  
+ *  
+ *  \details Details
+ */
 void tab::print(){
+	int terminalSizeX, terminalSizeY;
+	int boardSizeX, boardSizeY;
+	
 	struct winsize w;
 	ioctl(0, TIOCGWINSZ, &w);
-	int scrLar=w.ws_col;
-	int scrAlt=w.ws_row;
-	FOR(i,(scrAlt-cfg::config()->screenAlt-2)/2)printf("\n");
-	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	terminalSizeX=w.ws_col;
+	terminalSizeY=w.ws_row;
+	
+	boardSizeX = cfg::config()->screenLar;
+	boardSizeY = cfg::config()->screenAlt;
+	
+	
+	int i;
+	for(i=0; i< (terminalSizeY - boardSizeY -2)/2; i++)
+		printf("\n");
+	for(i=0; i< (terminalSizeX - boardSizeX -2)/2; i++)
+		printf(" ");
+		
 	changeBGcolor(COLOR_YELLOW);
 	printf("┌");
-	FOR(i,cfg::config()->screenLar/2)printf("──");
+	for(i=0; i< boardSizeX/2; i++)
+		printf("──");
 	printf("┐");
 	resetColor();
 	printf("\n");
-	FOR(j,MIN(cfg::config()->screenAlt,scrAlt-12)){
-		FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	
+	
+	FOR(j,MIN(boardSizeY,terminalSizeY-12)){
+		FOR(i,(terminalSizeX-boardSizeX-2)/2)printf(" ");
 		changeBGcolor(COLOR_YELLOW);
 		printf("│");
 		resetColor();
-		FOR(i,MIN(cfg::config()->screenLar/2,scrLar-20)){
+		FOR(i,MIN(boardSizeX/2,terminalSizeX-20)){
 			int xx=(cfg::config()->curX+i)%lar;
 			int yy=(cfg::config()->curY+j)%alt;
 			if     (!xx && yy==alt-1)changeBGcolor(COLOR_BRED);
@@ -92,15 +140,16 @@ void tab::print(){
 		resetColor();
 		printf("\n");
 	}
-	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	FOR(i,(terminalSizeX-boardSizeX-2)/2)printf(" ");
 	changeBGcolor(COLOR_YELLOW);
 	printf("└");
-	FOR(i,cfg::config()->screenLar/2)printf("──");
+	FOR(i,boardSizeX/2)printf("──");
 	printf("┘");
 	resetColor();
 	printf("\n\n");
-	FOR(i,(scrAlt-cfg::config()->screenAlt-10)/2)printf("\n");
-};
+	FOR(i,(terminalSizeY-boardSizeY-10)/2)printf("\n");
+}
+
 void tab::randomize(){
 	cont=0;
 	FOR(j,alt){
@@ -109,4 +158,4 @@ void tab::randomize(){
 			cont+=(v[i][j])/10;
 		}
 	}
-};
+}
