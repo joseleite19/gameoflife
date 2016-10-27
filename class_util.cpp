@@ -1,4 +1,19 @@
-#include "gameoflife.hpp"
+#include "./include/util.hpp"
+#include "./include/terminal.hpp"
+#include "./include/game.hpp"
+#include "./include/config.hpp"
+
+#include <vector>
+#include <string>
+#include <fstream>
+#include <algorithm>
+#include <string.h>
+
+#include <unistd.h>
+#include <termios.h>
+#include <fcntl.h>
+
+using namespace std;
 
 void clear(){
 	system("clear || cls");
@@ -16,13 +31,14 @@ void resetColor(){
 	printf("\x1b[0m");
 }
 
-void quit(){
-	exit(0);
-}
 
-int readIntInRange(int a, int b){//le um inteiro entre a e b
+/**
+ *  \brief Reads an integer that is inside a range
+ */
+int readIntInRange(int a, int b){
 	int x;
-	if(a == b){//a até infinito
+	
+	if(a == b){//[a,+infinito]
 		while(1){
 			x=a-1;
 			scanf(" %d",&x);
@@ -30,7 +46,7 @@ int readIntInRange(int a, int b){//le um inteiro entre a e b
 			if(x>=a)return x;
 		}
 	}
-	if(a>b){//-infinito até b
+	if(a>b){//[-infinito,b]
 		while(1){
 			x=b+1;
 			scanf(" %d",&x);
@@ -62,7 +78,10 @@ vector<string> getArqNames(string dir,string ext){
 	return s;
 }
 
-vector<string> printArqNames(string dir,string ext){//imprime na tela todos os arquivos com extensão ext no diretório dir
+/**
+ *  \brief Prints all files that has a given extension inside a directory
+ */
+vector<string> printArqNames(string dir, string ext){
 	ifstream arq;
 	vector<string> s;
 	string line,out = "ls " + dir + " > " + dir + "arqs.txt";
@@ -84,7 +103,10 @@ bool checkValidPatternName(string s){
 	return find(v.begin(),v.end(),s)==v.end();
 }
 
-bool canOpen(string arqName){//checa se é possivel abrir o arquivo
+/**
+ *  \brief Checks if a file can be opened
+ */
+bool canOpen(string arqName){
 	ifstream arq;
 	arq.open(arqName);
 	if(arq.is_open()){
@@ -94,7 +116,10 @@ bool canOpen(string arqName){//checa se é possivel abrir o arquivo
 	return false;
 }
 
-bool kbhit(){//checa se existe algo na entrada padrão
+/**
+ *  \brief Checks if exists something at standard input (stdin)  
+ */
+bool kbhit(){
 	struct termios oldt, newt;
 	int ch, oldf;
 	tcgetattr(STDIN_FILENO,&oldt);
@@ -116,7 +141,12 @@ bool kbhit(){//checa se existe algo na entrada padrão
 	return false;
 }
 
-char getch(){//le um caracter da entrada padrão sem o bloqueio de entrada(nao necessita apertar enter)
+/**
+ *  \brief Reads one character from standard input without input block
+ *  
+ *  Return an character without waiting the user to press enter to confirm the input.
+ */
+char getch(){
 	int ch;
 	struct termios oldt;
 	struct termios newt;
@@ -129,7 +159,8 @@ char getch(){//le um caracter da entrada padrão sem o bloqueio de entrada(nao n
 	return ch;
 }
 
-string getchAll(){//le um caracter da entrada padrão sem o bloqueio de entrada até a entrada estar vazia(nao necessita apertar enter)
+//le um caracter da entrada padrão sem o bloqueio de entrada até a entrada estar vazia(nao necessita apertar enter)
+string getchAll(){
 	string s="";
 	s+=getch();
 	while(kbhit())s+=getch();
@@ -172,9 +203,40 @@ void randomize(){
 	game::jogo()->randomize();
 }
 
+
+//NOTE: keyCode to keyFriendlyName lookup table
+const std::pair<std::string,std::string> key_str[] = {
+	{KEY_ESC,		"ESC"},
+	{KEY_BCKSP,		"Backspace"},
+	{KEY_UP,		"↑"},
+	{KEY_LEFT,		"←"},
+	{KEY_DOWN,		"↓"},
+	{KEY_RIGHT,		"→"},
+	{KEY_S_UP,		"Shift + ↑"},
+	{KEY_S_LEFT,	"Shift + ←"},
+	{KEY_S_DOWN,	"Shift + ↓"},
+	{KEY_S_RIGHT,	"Shift + →"},
+	{KEY_PAGE_UP,	"Page Up"},
+	{KEY_PAGE_DOWN,	"Page Down"},
+	{KEY_END,		"END"},
+	{KEY_F1,		"F1"},
+	{KEY_F2,		"F2"},
+	{KEY_F3,		"F3"},
+	{KEY_F4,		"F4"},
+	{KEY_F5,		"F5"},
+	{KEY_F6,		"F6"},
+	{KEY_F7,		"F7"},
+	{KEY_F8,		"F8"},
+	{KEY_F9,		"F9"},
+	{KEY_F10,		"F10"},
+	{KEY_F11,		"F11"},
+	{KEY_F12,		"F12"},
+};
+
 string keyToStr(string key){
 	for(auto i:key_str){
-		if(key==i.first)return i.second;
+		if(key==i.first)
+			return i.second;
 	}
 	return key;
 }

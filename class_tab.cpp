@@ -1,4 +1,12 @@
-#include "gameoflife.hpp"
+#include "./include/tab.hpp"
+#include "./include/terminal.hpp"
+#include "./include/util.hpp"
+#include "./include/config.hpp"
+
+#include <stdio.h>
+#include <stdlib.h> //WARNING: couldn't find which header does rand belongs to in old gameoflife.hpp
+#include <string.h>
+#include <sys/ioctl.h>
 
 tab::tab(){
 	lar = -1;

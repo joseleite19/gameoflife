@@ -1,0 +1,39 @@
+Técnicas de Programação I 2/2016
+Prof. Rodrigo Bonifário
+
+Alunos:
+Cristiano Cardoso 		15/0058349
+João Pedro Silva Sousa	15/
+José Marcos da Silva Leite	15/
+Cristiano Krug Brust	15/
+
+GameOfLife PlusPlus
+Versão 0.1
+
+O simulador do Game of Life foi escrito em C++ com intuito de haver mais um exemplo de implementação noutra linguagem orientada a objetos. O objetivo principal é construir uma framework para o simulador onde outras pessoas possam contribuir adicionado novas regras.
+
+0. Observações
+O jogo foi compilado e testado utilizando a seguinte configuração:
+	g++ (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4
+	GNU Make 3.81
+	
+O arquivo executável foi incluido caso não seja possível compilar.
+
+1. Como compilar
+Extraia o .zip em uma pasta qualquer (ex: ~/Desktop/GameOfLife/). 
+Abra o terminal nesta pasta e execute o comando:
+$ make
+
+2. Como executar
+Na pasta onde foi extraído o arquivo .zip (ex: ~/Desktop/GameOfLife/) abra o terminal e execute o comando:
+$ ./bin/game
+
+3. Functionalidades
+	A. 	No momento que abres o jogo, o tabuleiro contendo as células é gerado aleatoriamente
+	B1. É possivel ir à próxima iteração utilizando a seta para direita ->
+	B2. É possivel voltar uma iteração utilizando a seta para esquerda <-
+	C1.	Caso desejas visualizar as iterações automaticamente, basta ativar a função velocidade.
+	C2.	A velocidade é definida por padrão como 100. Ela pode ser aumentada ou diminuida utilizando as setas para cima ^ e para baixo \/, respectivamente.
+	C3. Ao pressionar quaisquer uma destas teclas citadas no item C2., as iterações serão geradas automaticamente.
+	C4. Para poder visualizar passo-a-passo as iterações novamente, pressione a tecla espaço. O jogo pausará. Desta forma, é possível, utilizar as teclas para esquerda e direita.
+	D. A tecla ESC abre o menu do jogo.

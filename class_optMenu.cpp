@@ -1,5 +1,14 @@
-#include "gameoflife.hpp"
+//NOTE: compiler needs -std=c++11
+#include "./include/menu.hpp"
+#include "./include/terminal.hpp"
+#include "./include/util.hpp"
+#include "./include/config.hpp"
 
+#include <iostream>
+#include <stdio.h>
+#include <sys/ioctl.h>
+
+using namespace std;
 
 optMenu::optMenu():selected{0}{}
 optMenu::~optMenu(){

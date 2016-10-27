@@ -1,4 +1,7 @@
 #ifndef GAME_HPP
+#define GAME_HPP
+
+#include "tab.hpp"
 
 #include <string>
 

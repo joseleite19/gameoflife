@@ -1,4 +1,5 @@
 #ifndef TAB_HPP
+#define TAB_HPP
 
 class tab{
 	public:

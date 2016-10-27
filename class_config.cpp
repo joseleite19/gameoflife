@@ -1,4 +1,15 @@
-#include "gameoflife.hpp"
+//NOTE: compiler needs -std=c++11
+#include "./include/config.hpp"
+#include "./include/util.hpp"
+#include "./include/terminal.hpp"
+#include "./include/menu.hpp"
+#include "./include/game.hpp"
+
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+
+using namespace std;
 
 cfg* cfg::pCfg = NULL;
 
@@ -66,6 +77,11 @@ void cfg::defConfig(){
 
 bool cfg::load(string arqName){return false;}//TODO load configs from file
 void cfg::save(){}//TODO save configs in file
+
+
+void quit(){
+	exit(0);
+}
 
 void cfg::optionScreen(){
 	optMenu menu;
