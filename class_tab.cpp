@@ -86,9 +86,6 @@ int tab::neigh(int x,int y){
 
 /**
  *  \brief Draws the board based on the grid cell data.
- *  
- *  
- *  \details Details
  */
 void tab::print(){
 	int terminalSizeX, terminalSizeY;

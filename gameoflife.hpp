@@ -2,8 +2,10 @@
 #define GAMEOFLIFE_HEADER
 
 #include "./include/tab.hpp"
+#include "./include/config.hpp"
+#include "./include/game.hpp" 	//game requires tab.hpp, so doesn't change the order of the include yet
 
-//#include <bits/stdc++.h> //TODO:  removed for mac-compatibility - not-tested
+//#include <bits/stdc++.h> 		//WARNING: removed for mac-compatibility - not-tested
 #include <iostream>
 #include <vector>
 #include <string>
@@ -106,60 +108,6 @@ const pair<string,string> key_str[] = {
 	{KEY_F10,		"F10"},
 	{KEY_F11,		"F11"},
 	{KEY_F12,		"F12"},
-};
-
-class cfg{
-	cfg();
-	~cfg();
-	public:
-		static cfg* pCfg;
-		static cfg* config();
-		int editting;
-		int speed; //TODO: Where speed is set
-		int curX,curY;
-		int cursorX,cursorY;
-		int screenLar,screenAlt; //screenWidth, screenHeight
-		int color[10]; //color-pallete
-		string dead,alive; 
-		string move[4],moveCursor[4];
-		string next,back,pauseKey,speedUp,speedDown;
-		string nextx10,speedUpx10,speedDownx10;
-		string optionKey;
-		bool load(string);
-		void save();
-		void optionScreen();
-		void configScreen();
-		void sleep();
-		void moveCamera(int);
-		void moveCurs(int);
-		void pause();
-		
-	private:
-		void defConfig();
-};
-
-class game{
-	game();
-	~game();
-	public:
-		static game* pGame;
-		static game* jogo();
-		short int rS,rB;//WARNING: what are those?
-		tab board;//TODO:calculate how much memory does this program uses in function of MAX_UNDO
-		tab prev[11];//add macro MAX_UNDO
-		int prevBegin;//contador usado para guardar a posição de inicio da 'fila' prev.
-		int prevEnd;//contador usado para guardar a posição de fim da 'fila' prev.
-		short int ruleStringToInt(string);
-		void readArq(const string&);
-		void saveArq(const string&);
-		void readRule(const string&);
-		bool isAlive(int,int);
-		bool willSurvive(int);
-		bool willBeBorn(int);
-		void next();
-		void back();
-		void print();
-		void randomize();
 };
 
 class optMenu;

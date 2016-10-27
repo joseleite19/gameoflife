@@ -111,8 +111,8 @@ void cfg::sleep(){
 	usleep(10000000/(cfg::config()->speed));
 };
 
-void cfg::moveCamera(int dir){
-	switch (dir){
+void cfg::moveCamera(int direction){
+	switch (direction){
 		case 0:
 			curY = ((curY-1)+game::jogo()->board.alt)%game::jogo()->board.alt; break;
 		case 1:
@@ -124,8 +124,8 @@ void cfg::moveCamera(int dir){
 	}
 }
 
-void cfg::moveCurs(int dir){
-	switch (dir){
+void cfg::moveCurs(int direction){
+	switch (direction){
 		case 0:
 			cursorY = ((cursorY-1)+game::jogo()->board.alt)%game::jogo()->board.alt; break;
 		case 1:
