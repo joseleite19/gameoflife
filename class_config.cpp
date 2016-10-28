@@ -62,7 +62,7 @@ void cfg::optionScreen(){
 	function<void(const string&)> func1;
 	function<bool(const string&)> func2;
 	function<void()> func3;
-	menu.add_button_toogle("Edit cells manually(TODO)","Stop manual editting(TODO)",cfg::config()->editting);
+	menu.add_button_toogle("Edit cells manually","Stop manual editting",cfg::config()->editting);
 	func1 = readArq;
 	menu.add_button_select("Load a cell map from a file",getArqNames("./patterns/",".life"),func1);
 	func1 = saveArq;
