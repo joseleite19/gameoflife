@@ -1,10 +1,13 @@
-#include "gameoflife.hpp"
+#include "./include/game.hpp"
+#include "./include/config.hpp"
+#include "./include/util.hpp"
 
-// #include "class_tab.cpp"
-// #include "class_game.cpp"
-// #include "class_optMenu.cpp"
-// #include "class_config.cpp"
-// #include "class_menu_opt.cpp"
+#include <stdlib.h> //WARNING: couldn't find which header does srand belongs to in old gameoflife.hpp
+#include <unistd.h>
+
+#define MAX_SPEED 1000
+
+using namespace std;
 
 int main(){
 	srand(time(NULL));

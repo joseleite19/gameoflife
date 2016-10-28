@@ -1,4 +1,13 @@
-#include "gameoflife.hpp"
+//NOTE: compiler needs -std=c++11
+#include "./include/menu.hpp"
+#include "./include/terminal.hpp"
+#include "./include/util.hpp"
+#include "./include/config.hpp"
+
+#include <stdio.h>
+#include <sys/ioctl.h>
+
+using namespace std;
 
 void printBorders(){
 	struct winsize w;

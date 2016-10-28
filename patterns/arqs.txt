@@ -1,5 +1,4 @@
 arqs.txt
-arqs.txt~
 ggun1.life
 ggun2.life
 ggun3.life
