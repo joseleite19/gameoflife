@@ -19,6 +19,7 @@ class tab{
 		int 	neigh		(int x, int y);
 		void 	print		();
 		void 	randomize	();
+		void	invert();
 		
 	private:
 		void 	allocBoard	();

@@ -1,8 +1,10 @@
 //NOTE: compiler needs -std=c++11
 #include "./include/menu.hpp"
+#include "./include/game.hpp"
 #include "./include/terminal.hpp"
 #include "./include/util.hpp"
 #include "./include/config.hpp"
+
 
 #include <stdio.h>
 #include <sys/ioctl.h>
@@ -33,8 +35,6 @@ menu_opt_toogle::menu_opt_toogle(string str,string str2,int& v):
 	s2{str2},val{v}{s=str;}
 menu_opt_toogle::~menu_opt_toogle(){}
 void menu_opt_toogle::click(optMenu &menu){
-	// val = (val+1)%2;
-
 	string in;
 	int oldX, oldY;
 
@@ -45,9 +45,9 @@ void menu_opt_toogle::click(optMenu &menu){
 		clear();
 		game::jogo()->board.print();
 
-		cout << "Press ESC to stop editting\n";
-		cout << "Move with WASD or arrow keys\n";
-		cout << "Press [ENTER] to change state\n";
+		printf("Press ESC to stop editting\n");
+		printf("Move with WASD or arrow keys\n");
+		printf("Press [ENTER] to change state\n");
 
 		in = getchLine();
 		

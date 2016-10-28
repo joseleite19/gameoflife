@@ -6,7 +6,7 @@ OBJS = game_main.cpp class_util.cpp class_config.cpp class_tab.cpp class_game.cp
 #removed flag: -Wall
 FLAGS = -std=c++11 -O2 -Wno-unused-result
 
-TARGET = ./bin/game
+TARGET = game
 
 all:
 	$(CPP) $(FLAGS) $(OBJS) -o $(TARGET)

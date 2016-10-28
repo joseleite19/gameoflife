@@ -3,9 +3,9 @@ Prof. Rodrigo Bonifário
 
 Alunos:
 Cristiano Cardoso 		15/0058349
-João Pedro Silva Sousa	15/
-José Marcos da Silva Leite	15/
-Cristiano Krug Brust	15/
+João Pedro Silva Sousa	15/0038381
+José Marcos da Silva Leite	15/0038810
+Cristiano Krug Brust	15/0008058
 
 GameOfLife PlusPlus
 Versão 0.1
