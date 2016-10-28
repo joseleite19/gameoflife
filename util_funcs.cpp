@@ -228,44 +228,7 @@ void changeConfig () {
 	}
 }
 
-void printBG () {
-	CLEAR;
-	for (int i = 0; i < 10; i++) {
-		cout << "With colour " << i << " the ";
-		changeBGcolor (i);
-		cout << "Background will look like this\n";
-		changeBGcolor (COLOR_DEF);
-	}
-
-	for (int i = 60; i < 68; i++) {
-		cout << "With colour " << i-50 << " the ";
-		changeBGcolor (i);
-		cout << "Background will look like this\n";
-		changeBGcolor (COLOR_DEF);
-	}
-}
-
-void changeBackGround () {
-	string in;
-	while (true) {
-		printBG ();
-		cout << "\n\n\tType the number of the colour of your choice: ";
-		in = getchLine();
-
-		if (in == KEY_ESC) break;
-		
-		int c;
-		do {
-			scanf ("%d", &c); getchar ();
-		} while (c < 0 || c > 17);
-
-		//QUAL A VARIÁVEL QUE MUDA A COR DO FUNDO????????????????
-
-	}
-}
-
 void printFG () {
-	CLEAR;
 
 	cout << "\n\n\tAlived cell: \"" << cfg::config()->alive << "\"";
 	cout << "\t\t\tDead cell: \"" << cfg::config()->dead << "\"\n\n";
@@ -273,21 +236,25 @@ void printFG () {
 	for (int i = 0; i < 10; i++) {
 		cout << "\tWith colour " << i << " the ";
 		changeFGcolor (i);
-		cout << "Cells will look like this\n";
+		cout << "Cells will look like this: \"" << cfg::config()->alive << "\"\n";
 		changeFGcolor (COLOR_DEF);
 	}
 
 	for (int i = 60; i < 68; i++) {
 		cout << "\tWith colour " << i-50 << " the ";
 		changeFGcolor (i);
-		cout << "Cells will look like this\n";
+		cout << "Cells will look like this: \"" << cfg::config()->alive << "\"\n";
 		changeFGcolor (COLOR_DEF);
 	}
 }
 
 void changeCellColour () {
 	string in;
-	while (true) {
+
+	for (int i = 0; i < 10; i++) {
+		CLEAR;
+		cout << "Changing colour of cell with " << i << " neighboors\n";
+
 		printFG ();
 		cout << "\n\n\tType the number of the colour of your choice: ";
 		in = getchLine();
@@ -297,22 +264,19 @@ void changeCellColour () {
 		int c;
 		do {
 			scanf ("%d", &c); getchar ();
-		} while (c < 0 || c > 17);
+		} while ((c < 0 || c > 17) && printf("This colour doesn't exist.\n") && getchar ());
 
-		//QUAL A VARIÁVEL QUE MUDA A COR DA CÉLULA????????????????
-
-
+		if (c < 10) cfg::config()->color[i] = COLOR_BLACK + c;
+		else cfg::config()->color[i] = COLOR_BLACK + 50 + c;
 	}
+
 }
 
 void changeGraphs () {
 	optMenu graphMenu;
 	string in;
 
-	function<void()> func1;
 	function<void()> func2;
-	func1 = changeBackGround;
-	graphMenu.add_button ("Change background colour", func1);
 	func2 = changeCellColour;
 	graphMenu.add_button ("Change cell colour", func2);
 
