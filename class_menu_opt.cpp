@@ -33,8 +33,10 @@ void menu_opt_toogle::click(optMenu &menu){
 	while(1){
 		clear();
 		game::jogo()->board.print();
+
 		cout << "Press ESC to stop editting\n";
-		cout << "W - up; A - left; D - right; S - down; [ENTER] - change state\n";
+		cout << "Move with WASD or arrow keys\n";
+		cout << "Press [ENTER] to change state\n";
 
 		in = getchLine();
 		
