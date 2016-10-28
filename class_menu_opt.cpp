@@ -33,7 +33,44 @@ menu_opt_toogle::menu_opt_toogle(string str,string str2,int& v):
 	s2{str2},val{v}{s=str;}
 menu_opt_toogle::~menu_opt_toogle(){}
 void menu_opt_toogle::click(optMenu &menu){
-	val = (val+1)%2;
+	// val = (val+1)%2;
+
+	string in;
+	int oldX, oldY;
+
+	oldX = cfg::config()->cursorX;
+	oldY = cfg::config()->cursorY;
+
+	while(1){
+		clear();
+		game::jogo()->board.print();
+
+		cout << "Press ESC to stop editting\n";
+		cout << "Move with WASD or arrow keys\n";
+		cout << "Press [ENTER] to change state\n";
+
+		in = getchLine();
+		
+		if(in == KEY_UP || in == "W" || in == "w")
+			cfg::config()->moveCurs(0);
+
+		else if(in == KEY_LEFT || in == "A" || in == "a")
+			cfg::config()->moveCurs(1);
+
+		else if(in == KEY_DOWN || in == "S" || in == "s")
+			cfg::config()->moveCurs(2);
+
+		else if(in == KEY_RIGHT || in == "D" || in == "d")
+			cfg::config()->moveCurs(3);
+
+		else if(in == "\n")
+			game::jogo()->board.invert();
+
+		else if(in == KEY_ESC) break;
+	}
+
+	cfg::config()->cursorX = oldX;
+	cfg::config()->cursorY = oldY;
 }
 void menu_opt_toogle::print(bool selected){
 	printBorders();

@@ -27,6 +27,10 @@ void changeBGcolor(int x){
 	printf("\x1b[%dm",40+x);
 }
 
+void invBGcolor(){
+	printf("\x1b[%dm",7);
+}
+
 void resetColor(){
 	printf("\x1b[0m");
 }

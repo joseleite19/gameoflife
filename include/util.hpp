@@ -17,6 +17,7 @@ void 	clear();
 void 	changeFGcolor(int);
 void 	changeBGcolor(int);
 void 	resetColor();
+void	invBGcolor();
 
 int 	readIntInRange(int a,int b);
 std::vector<std::string> getArqNames(std::string,std::string);
