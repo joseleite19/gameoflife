@@ -82,7 +82,11 @@ void tab::print(){
 			else if(!xx || yy==alt-1)changeBGcolor(COLOR_BBLUE);
 			else					 changeBGcolor(COLOR_GREEN);
 			changeFGcolor(cfg::config()->color[(int)(v[xx][yy])%10]);
-			if(xx == cfg::config()->cursorX && yy == cfg::config()->cursorY) invBGcolor();
+			
+			if(cfg::config()->speed < 0 &&
+				xx == cfg::config()->cursorX &&
+				yy == cfg::config()->cursorY) invBGcolor();
+
 			if(v[xx][yy]==10)	printf("# ");
 			else if(v[xx][yy])	printf("%d ",v[xx][yy]);
 			else       			printf(". ");
