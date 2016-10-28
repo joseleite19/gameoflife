@@ -147,6 +147,7 @@ class tab{
 		int neigh(int,int);
 		void print();
 		void randomize();
+		void invert();
 };
 class game{
 	game();
@@ -240,7 +241,7 @@ class optMenu{
 
 
 
-
+void invBGcolor();
 void clear();
 void changeFGcolor(int);
 void changeBGcolor(int);

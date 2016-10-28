@@ -70,7 +70,7 @@ void tab::print(){
 	printf("┐");
 	resetColor();
 	printf("\n");
-	FOR(j,MIN(cfg::config()->screenAlt,scrAlt-12)){
+	FOR(j, MIN(cfg::config()->screenAlt,scrAlt-12)){
 		FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
 		changeBGcolor(COLOR_YELLOW);
 		printf("│");
@@ -82,6 +82,7 @@ void tab::print(){
 			else if(!xx || yy==alt-1)changeBGcolor(COLOR_BBLUE);
 			else					 changeBGcolor(COLOR_GREEN);
 			changeFGcolor(cfg::config()->color[(int)(v[xx][yy])%10]);
+			if(xx == cfg::config()->cursorX && yy == cfg::config()->cursorY) invBGcolor();
 			if(v[xx][yy]==10)	printf("# ");
 			else if(v[xx][yy])	printf("%d ",v[xx][yy]);
 			else       			printf(". ");
@@ -108,5 +109,17 @@ void tab::randomize(){
 			v[i][j]=(rand()%2)*10;
 			cont+=(v[i][j])/10;
 		}
+	}
+};
+void tab::invert(){
+	int x = cfg::config()->cursorX;
+	int y = cfg::config()->cursorY;
+	if(v[x][y] == 0){
+		v[x][y] = 10;
+		cont++;
+	}
+	else{
+		v[x][y] = 0;
+		cont--;
 	}
 };
