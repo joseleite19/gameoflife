@@ -12,79 +12,74 @@ using namespace std;
 int main(){
 	srand(time(NULL));
 
-	game::pGame = NULL;
-	cfg::pCfg = NULL;
-
 	string in;
 	while(1){
 		clear();
-		game::jogo()->print();
-		if(cfg::config()->speed>=0){
-			cfg::config()->sleep();
+		pJogo->print();
+		if(pConfig->editting){
+			in = getchLine();
+			if(in == pConfig->moveCursor[0])		pConfig->moveCurs(0);
+			else if(in == pConfig->moveCursor[1])	pConfig->moveCurs(1);
+			else if(in == pConfig->moveCursor[2])	pConfig->moveCurs(2);
+			else if(in == pConfig->moveCursor[3])	pConfig->moveCurs(3);
+			else if(in == "\n")						pJogo->board.invert();
+			else if(in == pConfig->optionKey)		pConfig->optionScreen();
+			continue;
+		}
+		if(pConfig->speed>=0){
+			pConfig->sleep();
 			if(!kbhit()){
-				game::jogo()->next();
+				pJogo->next();
 				continue;
 			}
 		}
 
 		in = getchLine();
-		if(in == cfg::config()->next){
-			game::jogo()->next();
+		if(in == pConfig->next){
+			pJogo->next();
 		}
-		else if(in == cfg::config()->nextx10){
+		else if(in == pConfig->nextx10){
 			FOR(i,9){
 				usleep(100000);
-				game::jogo()->next();
+				pJogo->next();
 				clear();
-				game::jogo()->print();
+				pJogo->print();
 			}
-			game::jogo()->next();
+			pJogo->next();
 		}
-		else if(in == cfg::config()->back){
-			game::jogo()->back();
+		else if(in == pConfig->back){
+			pJogo->back();
 		}
-		else if(in == cfg::config()->pauseKey){
-			cfg::config()->speed *= -1;
+		else if(in == pConfig->pauseKey){
+			pConfig->speed *= -1;
 		}
-		else if(in == cfg::config()->speedUp){
-			cfg::config()->speed = MIN(MAX_SPEED, ABS(cfg::config()->speed)+1);
+		else if(in == pConfig->speedUp){
+			pConfig->speed = MIN(MAX_SPEED, ABS(pConfig->speed)+1);
 		}
-		else if(in == cfg::config()->speedUpx10){
-			cfg::config()->speed = MIN(MAX_SPEED, ABS(cfg::config()->speed)+10);
+		else if(in == pConfig->speedUpx10){
+			pConfig->speed = MIN(MAX_SPEED, ABS(pConfig->speed)+10);
 		}
-		else if(in == cfg::config()->speedDown){
-			cfg::config()->speed = MAX(1, ABS(cfg::config()->speed)-1);
+		else if(in == pConfig->speedDown){
+			pConfig->speed = MAX(1, ABS(pConfig->speed)-1);
 		}
-		else if(in == cfg::config()->speedDownx10){
-			cfg::config()->speed = MAX(1, ABS(cfg::config()->speed)-10);
+		else if(in == pConfig->speedDownx10){
+			pConfig->speed = MAX(1, ABS(pConfig->speed)-10);
 		}
-		else if(in == cfg::config()->move[0]){
-			cfg::config()->moveCamera(0);
+		else if(in == pConfig->move[0]){
+			pConfig->moveCamera(0);
 		}
-		else if(in == cfg::config()->move[1]){
-			cfg::config()->moveCamera(1);
+		else if(in == pConfig->move[1]){
+			pConfig->moveCamera(1);
 		}
-		else if(in == cfg::config()->move[2]){
-			cfg::config()->moveCamera(2);
+		else if(in == pConfig->move[2]){
+			pConfig->moveCamera(2);
 		}
-		else if(in == cfg::config()->move[3]){
-			cfg::config()->moveCamera(3);
+		else if(in == pConfig->move[3]){
+			pConfig->moveCamera(3);
 		}
-		else if(in == cfg::config()->moveCursor[0]){
-			cfg::config()->moveCurs(0);
-		}
-		else if(in == cfg::config()->moveCursor[1]){
-			cfg::config()->moveCurs(1);
-		}
-		else if(in == cfg::config()->moveCursor[2]){
-			cfg::config()->moveCurs(2);
-		}
-		else if(in == cfg::config()->moveCursor[3]){
-			cfg::config()->moveCurs(3);
-		}
-		else if(in == cfg::config()->optionKey){
-			cfg::config()->pause();
-			cfg::config()->optionScreen();
+		else if(in == pConfig->optionKey){
+			pConfig->pause();
+			pConfig->optionScreen();
 		}
 	}
 	clear();

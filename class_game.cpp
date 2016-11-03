@@ -42,7 +42,7 @@ game::~game(){
 	pGame=NULL;
 }	
 
-game* game::jogo(){
+game* pJogo{
 	if(!pGame)
 		pGame = new game;
 		
@@ -166,9 +166,9 @@ bool game::readRule(const string& arqName){
 	}
 	
 	getline(arq,line);
-	game::jogo()->rS = game::jogo()->ruleStringToInt(line);
+	pJogo->rS = pJogo->ruleStringToInt(line);
 	getline(arq,line);
-	game::jogo()->rB = game::jogo()->ruleStringToInt(line);
+	pJogo->rB = pJogo->ruleStringToInt(line);
 	arq.close();
 	printf("Arquivo lido com sucesso.\n");
 	usleep(20000);
@@ -246,6 +246,14 @@ bool game::back(){
 void game::print(){
 	board.print();
 
+	if(pConfig->editting){
+		cout << "Move the cursor with ("
+		<< keyToStr(pConfig->moveCursor[0]) << ","
+		<< keyToStr(pConfig->moveCursor[1]) << ","
+		<< keyToStr(pConfig->moveCursor[2]) << ","
+		<< keyToStr(pConfig->moveCursor[3]) << ") and press ENTER to change the state of the selected Cell.\n\n\n\n\n\n";
+		return;
+	}
 	cout << "Cells stay alive if they have (";
 	int first=1;
 	FOR(i,9){
@@ -279,8 +287,8 @@ void game::print(){
 	}
 	cout << ") neighbours" << endl << endl;
 
-	cout << "Speed " << ABS(cfg::config()->speed) << endl;
-	if(cfg::config()->speed<0) cout << "Paused" << endl;
+	cout << "Speed " << ABS(pConfig->speed) << endl;
+	if(pConfig->speed<0) cout << "Paused" << endl;
 	else cout << endl;
 }
 

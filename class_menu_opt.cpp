@@ -16,13 +16,13 @@ void printBorders(){
 	ioctl(0, TIOCGWINSZ, &w);
 	int scrLar=w.ws_col;
 	//int scrAlt=w.ws_row;
-	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	FOR(i,(scrLar-pConfig->screenLar-2)/2)printf(" ");
 	changeBGcolor(COLOR_YELLOW);printf("│");
-	changeBGcolor(COLOR_GREEN); FOR(i,(cfg::config()->screenLar))printf(" ");
+	changeBGcolor(COLOR_GREEN); FOR(i,(pConfig->screenLar))printf(" ");
 	changeBGcolor(COLOR_YELLOW);printf("│");
 	resetColor();
 	printf("\r");
-	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	FOR(i,(scrLar-pConfig->screenLar-2)/2)printf(" ");
 	printf("	");
 	changeBGcolor(COLOR_GREEN);
 }
@@ -31,52 +31,18 @@ void printBorders(){
 menu_opt::menu_opt(){}
 menu_opt::~menu_opt(){}
 
-menu_opt_toogle::menu_opt_toogle(string str,string str2,int& v):
-	s2{str2},val{v}{s=str;}
+menu_opt_toogle::menu_opt_toogle(string str,string str2,int& v,function<void(int&)> f):
+	on{str2},off{str},val{v}{f=func;}
 menu_opt_toogle::~menu_opt_toogle(){}
 void menu_opt_toogle::click(optMenu &menu){
-	string in;
-	int oldX, oldY;
-
-	oldX = cfg::config()->cursorX;
-	oldY = cfg::config()->cursorY;
-
-	while(1){
-		clear();
-		game::jogo()->board.print();
-
-		printf("Press ESC to stop editting\n");
-		printf("Move with WASD or arrow keys\n");
-		printf("Press [ENTER] to change state\n");
-
-		in = getchLine();
-		
-		if(in == KEY_UP || in == "W" || in == "w")
-			cfg::config()->moveCurs(0);
-
-		else if(in == KEY_LEFT || in == "A" || in == "a")
-			cfg::config()->moveCurs(1);
-
-		else if(in == KEY_DOWN || in == "S" || in == "s")
-			cfg::config()->moveCurs(2);
-
-		else if(in == KEY_RIGHT || in == "D" || in == "d")
-			cfg::config()->moveCurs(3);
-
-		else if(in == "\n")
-			game::jogo()->board.invert();
-
-		else if(in == KEY_ESC) break;
-	}
-
-	cfg::config()->cursorX = oldX;
-	cfg::config()->cursorY = oldY;
+	val = (val+1)%2;
+	if(func)func(val);
 }
 void menu_opt_toogle::print(bool selected){
 	printBorders();
 	if(selected)changeBGcolor(COLOR_BBLACK);
-	if(val)printf("%s",s2.c_str());
-	else   printf("%s",s.c_str());
+	if(val)printf("%s",on.c_str());
+	else   printf("%s",off.c_str());
 	resetColor();
 	printf("\n");
 }
@@ -120,34 +86,34 @@ void menu_opt_select::print(bool selected){
 }
 
 
-menu_opt_write::menu_opt_write(string str,string str3,function<bool(string)> check,function<void(const string&)> f):
-	s2{""},s3{str3}{s=str;checkFunc=check;func=f;}
+menu_opt_write::menu_opt_write(string str,string str2,function<bool(string)> check,function<void(const string&)> f):
+	s{str},message{""},error{str2}{checkFunc=check;func=f;}
 menu_opt_write::~menu_opt_write(){}
 void menu_opt_write::click(optMenu &menu){
-	string s;
-	s2=" ";
+	string in;
+	message=" ";
 	clear();
 	menu.print();
-	s2="";
+	message="";
 	while(1){
-		s = getchLine();
-		if(s==KEY_ESC)return;
-		else if(s==KEY_BCKSP)s2.pop_back();
-		else if(s=="\n"){
-			if(s2=="")continue;
-			if(checkFunc(s2)){
-				func(s2);
-				s2="";
+		in = getchLine();
+		if(in==KEY_ESC)return;
+		else if(in==KEY_BCKSP)message.pop_back();
+		else if(in=="\n"){
+			if(message=="")continue;
+			if(checkFunc(message)){
+				func(message);
+				message="";
 				getchar();
 				return;
 			}
 			else{
-				printf("%s\n",s3.c_str());
-				s2="";
+				printf("%s\n",error.c_str());
+				message="";
 				getchar();
 			}
 		}
-		else s2+=s;
+		else message+=in;
 		clear();
 		menu.print();
 	}
@@ -158,10 +124,10 @@ void menu_opt_write::print(bool selected){
 	printf("%s",s.c_str());
 	resetColor();
 	printf("\n");
-	if(selected && s2!=""){
+	if(selected && message!=""){
 		printBorders();
 		changeBGcolor(COLOR_BBLACK);
-		printf("	%s",s2.c_str());
+		printf("	%s",message.c_str());
 		resetColor();
 		printf("\n");
 	}

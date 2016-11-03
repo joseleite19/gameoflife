@@ -2,6 +2,7 @@
 #define CONFIG_HPP
 
 #include <string>
+#define pConfig cfg::config()
 
 class cfg{
 	cfg();

@@ -18,8 +18,8 @@ optMenu::~optMenu(){
 	}
 }
 
-void optMenu::add_button_toogle(string s,string s2,int& val){
-	menu_opt *p = new menu_opt_toogle(s,s2,val);
+void optMenu::add_button_toogle(string s,string s2,int& val,function<void(int&)> func){
+	menu_opt *p = new menu_opt_toogle(s,s2,val,func);
 	options.push_back(p);
 }
 
@@ -28,8 +28,8 @@ void optMenu::add_button_select(string s,vector<string> opts,function<void(const
 	options.push_back(p);
 }
 
-void optMenu::add_button_write (string s,string s3,function<bool(string)> checkFunc,function<void(const string&)> func){
-	menu_opt *p = new menu_opt_write(s,s3,checkFunc,func);
+void optMenu::add_button_write (string s,string s2,function<bool(string)> checkFunc,function<void(const string&)> func){
+	menu_opt *p = new menu_opt_write(s,s2,checkFunc,func);
 	options.push_back(p);
 }
 
@@ -46,24 +46,24 @@ void optMenu::print(){
 	int scrLar=w.ws_col;
 	int scrAlt=w.ws_row;
 
-	FOR(i,(scrAlt-cfg::config()->screenAlt-2)/2)printf("\n");
+	FOR(i,(scrAlt-pConfig->screenAlt-2)/2)printf("\n");
 
-	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	FOR(i,(scrLar-pConfig->screenLar-2)/2)printf(" ");
 	changeBGcolor(COLOR_YELLOW);
-	printf("┌");FOR(i,cfg::config()->screenLar/2)printf("──");printf("┐");
+	printf("┌");FOR(i,pConfig->screenLar/2)printf("──");printf("┐");
 	resetColor();
 	printf("\n");
 
-	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	FOR(i,(scrLar-pConfig->screenLar-2)/2)printf(" ");
 	changeBGcolor(COLOR_YELLOW);printf("│");
-	changeBGcolor(COLOR_GREEN);FOR(i,cfg::config()->screenLar/2)printf("  ");
+	changeBGcolor(COLOR_GREEN);FOR(i,pConfig->screenLar/2)printf("  ");
 	changeBGcolor(COLOR_YELLOW);printf("│");
 	resetColor();
 	printf("\n");
 
-	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	FOR(i,(scrLar-pConfig->screenLar-2)/2)printf(" ");
 	changeBGcolor(COLOR_YELLOW);printf("│");
-	changeBGcolor(COLOR_GREEN);FOR(i,cfg::config()->screenLar/2)printf("  ");
+	changeBGcolor(COLOR_GREEN);FOR(i,pConfig->screenLar/2)printf("  ");
 	changeBGcolor(COLOR_YELLOW);printf("│");
 	resetColor();
 	printf("\n");
@@ -73,27 +73,27 @@ void optMenu::print(){
 	}
 
 
-	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	FOR(i,(scrLar-pConfig->screenLar-2)/2)printf(" ");
 	changeBGcolor(COLOR_YELLOW);printf("│");
-	changeBGcolor(COLOR_GREEN);FOR(i,cfg::config()->screenLar/2)printf("  ");
-	changeBGcolor(COLOR_YELLOW);printf("│");
-	resetColor();
-	printf("\n");
-
-	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
-	changeBGcolor(COLOR_YELLOW);printf("│");
-	changeBGcolor(COLOR_GREEN);FOR(i,cfg::config()->screenLar/2)printf("  ");
+	changeBGcolor(COLOR_GREEN);FOR(i,pConfig->screenLar/2)printf("  ");
 	changeBGcolor(COLOR_YELLOW);printf("│");
 	resetColor();
 	printf("\n");
 
-	FOR(i,(scrLar-cfg::config()->screenLar-2)/2)printf(" ");
+	FOR(i,(scrLar-pConfig->screenLar-2)/2)printf(" ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	changeBGcolor(COLOR_GREEN);FOR(i,pConfig->screenLar/2)printf("  ");
+	changeBGcolor(COLOR_YELLOW);printf("│");
+	resetColor();
+	printf("\n");
+
+	FOR(i,(scrLar-pConfig->screenLar-2)/2)printf(" ");
 	changeBGcolor(COLOR_YELLOW);
-	printf("└");FOR(i,cfg::config()->screenLar/2)printf("──");printf("┘");
+	printf("└");FOR(i,pConfig->screenLar/2)printf("──");printf("┘");
 	resetColor();
 	printf("\n\n");
 
-	FOR(i,(scrAlt-cfg::config()->screenAlt-2)/2)printf("\n");
+	FOR(i,(scrAlt-pConfig->screenAlt-2)/2)printf("\n");
 }
 
 int optMenu::size(){

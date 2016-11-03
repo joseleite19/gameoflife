@@ -183,31 +183,6 @@ string getchLine(){//le um caracter da entrada padrão sem o bloqueio de entrada
 	return s;
 }
 
-void readArq(const string& s){
-	game::jogo()->readArq(s);
-}
-
-void saveArq(const string& s){
-	game::jogo()->saveArq(s);
-}
-
-void readRule(const string& s){
-	game::jogo()->readRule(s);
-}
-
-void openConfigScreen(){
-	cfg::config()->configScreen();
-}
-
-void openOptionScreen(){
-	cfg::config()->optionScreen();
-}
-
-void randomize(){
-	game::jogo()->randomize();
-}
-
-
 //NOTE: keyCode to keyFriendlyName lookup table
 const std::pair<std::string,std::string> key_str[] = {
 	{KEY_ESC,		"ESC"},

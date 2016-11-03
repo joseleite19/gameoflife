@@ -18,7 +18,7 @@ class optMenu{
 		~optMenu();
 		vector<menu_opt*> options;
 		int 	selected;
-		void 	add_button_toogle	(string,string,int&);
+		void 	add_button_toogle	(string,string,int&,function<void(int&)>);
 		void 	add_button_select	(string,vector<string>,function<void(const string&)>);
 		void 	add_button_write 	(string,string,function<bool(string)>,function<void(const string&)>);
 		void 	add_button       	(string,function<void()>);
@@ -39,11 +39,12 @@ class menu_opt{
 
 class menu_opt_toogle : public menu_opt{
 	public:
-		menu_opt_toogle(string,string,int&);
+		menu_opt_toogle(string,string,int&,function<void(int&)>);
 		virtual ~menu_opt_toogle();
 		
-		string		s2;
-		int& 		val;
+		string				on,off;
+		int& 				val;
+		function<void(int)>	func;
 		virtual void 	click(optMenu&);
 		virtual void 	print(bool);
 };
@@ -63,7 +64,7 @@ class menu_opt_select : public menu_opt{
 class menu_opt_write : public menu_opt{
 	public:
 		menu_opt_write(string,string,function<bool(string)>,function<void(const string&)>);
-		string 					s2,s3;
+		string 					s,message,error;
 		function<bool(string)>	checkFunc;
 		function<void(string)> 	func;
 		virtual ~menu_opt_write();

@@ -27,7 +27,6 @@ tab::~tab(){
 	deallocBoard();
 }
 
-
 void tab::allocBoard(){
 	v=new char*[lar];
 	FOR(i,lar){
@@ -104,8 +103,8 @@ void tab::print(){
 	terminalSizeX=w.ws_col;
 	terminalSizeY=w.ws_row;
 	
-	boardSizeX = cfg::config()->screenLar;
-	boardSizeY = cfg::config()->screenAlt;
+	boardSizeX = pConfig->screenLar;
+	boardSizeY = pConfig->screenAlt;
 	
 	
 	int i;
@@ -129,20 +128,24 @@ void tab::print(){
 		printf("│");
 		resetColor();
 		FOR(i,MIN(boardSizeX/2,terminalSizeX-20)){
-			int xx=(cfg::config()->curX+i)%lar;
-			int yy=(cfg::config()->curY+j)%alt;
+			int xx=(pConfig->curX+i)%lar;
+			int yy=(pConfig->curY+j)%alt;
 			if     (!xx && yy==alt-1)changeBGcolor(COLOR_BRED);
 			else if(!xx || yy==alt-1)changeBGcolor(COLOR_BBLUE);
 			else					 changeBGcolor(COLOR_GREEN);
-			changeFGcolor(cfg::config()->color[(int)(v[xx][yy])%10]);
 
-			if(cfg::config()->speed < 0 &&
-				xx == cfg::config()->cursorX &&
-				yy == cfg::config()->cursorY) invBGcolor();
-
-			if(v[xx][yy]==10)	printf("# ");
-			else if(v[xx][yy])	printf("%d ",v[xx][yy]);
-			else       			printf(". ");
+			if(pConfig->editting){
+				if(xx == pConfig->cursorX && yy == pConfig->cursorY) invBGcolor();
+				changeFGcolor(pConfig->color[0]);
+				if(v[xx][yy])	printf("# ");
+				else       		printf(". ");
+			}
+			else{
+				changeFGcolor(pConfig->color[(int)(v[xx][yy])%10]);
+				if(v[xx][yy]==10)	printf("# ");
+				else if(v[xx][yy])	printf("%d ",v[xx][yy]-1);
+				else       			printf(". ");
+			}
 			resetColor();
 		}
 		changeBGcolor(COLOR_YELLOW);
@@ -171,8 +174,8 @@ void tab::randomize(){
 }
 
 void tab::invert(){
-	int x = cfg::config()->cursorX;
-	int y = cfg::config()->cursorY;
+	int x = pConfig->cursorX;
+	int y = pConfig->cursorY;
 	if(v[x][y] == 0){
 		v[x][y] = 10;
 		cont++;

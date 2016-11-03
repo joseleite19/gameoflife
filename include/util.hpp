@@ -31,12 +31,6 @@ char 			getch();
 std::string 	getchAll();
 std::string 	getchLine();
 
-void 	readArq(const std::string&);
-void 	saveArq(const std::string&);
-void 	readRule(const std::string&);
-void 	openConfigScreen();
-void 	openOptionScreen();
 std::string 	keyToStr(std::string);
-void 	randomize();
 
 #endif

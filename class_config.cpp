@@ -25,7 +25,7 @@ cfg::~cfg(){
 	delete[] pCfg;
 	pCfg = NULL;
 }
-cfg* cfg::config(){
+cfg* pConfig{
 	if(!pCfg) 
 		pCfg = new cfg;
 		
@@ -63,11 +63,11 @@ void cfg::defConfig(){
 	color[1]		= COLOR_WHITE;
 	color[2]		= COLOR_MAGENTA;
 	color[3]		= COLOR_RED;
-	color[4]		= COLOR_YELLOW;
+	color[4]		= COLOR_BYELLOW;
 	color[5]		= 8;
-	color[6]		= COLOR_CYAN;
+	color[6]		= COLOR_BBLUE;
 	color[7]		= COLOR_BLUE;
-	color[8]		= COLOR_GREEN;
+	color[8]		= COLOR_BGREEN;
 	color[9]		= COLOR_BBLACK;
 	struct winsize w;
 	ioctl(0, TIOCGWINSZ, &w);
@@ -79,31 +79,17 @@ bool cfg::load(string arqName){return false;}//TODO load configs from file
 void cfg::save(){}//TODO save configs in file
 
 
-void quit(){
-	exit(0);
-}
-
 void cfg::optionScreen(){
 	optMenu menu;
 	string in;
-	function<void(const string&)> func1;
-	function<bool(const string&)> func2;
-	function<void()> func3;
-	
-	menu.add_button_toogle("Edit cells manually","Stop manual editting",cfg::config()->editting);
-	func1 = readArq;
-	menu.add_button_select("Load a cell map from a file",getArqNames("./patterns/",".life"),func1);
-	func1 = saveArq;
-	func2 = checkValidPatternName;
-	menu.add_button_write ("Save current cell map to a file","Invalid file name",func2,func1);
-	func1 = readRule;
-	menu.add_button_select("Load a new set of rules from a file",getArqNames("./rules/",".rule"),func1);
-	func3 = openConfigScreen;
-	menu.add_button       ("Configs(TODO)",func3);
-	func3 = randomize;
-	menu.add_button       ("Randomize",func3);
-	func3 = quit;
-	menu.add_button       ("Quit GameOfLife",func3);
+
+	menu.add_button_toogle("Edit cells manually",				"Stop manual editting",	pConfig->editting,		NULL);
+	menu.add_button_write ("Save current cell map to a file",	"Invalid file name",	checkValidPatternName,	[](string s){pJogo->saveArq(s);});
+	menu.add_button_select("Load a cell map from a file",			getArqNames("./patterns/",".life"),			[](string s){pJogo->readArq(s);});
+	menu.add_button_select("Load a new set of rules from a file",	getArqNames("./rules/",".rule"),			[](string s){pJogo->readRule(s);});
+	menu.add_button       ("Configs(TODO)",		[](){pConfig->configScreen();});
+	menu.add_button       ("Randomize",			[](){pJogo->randomize();});
+	menu.add_button       ("Quit GameOfLife",	[](){clear();exit(0);});
 	
 	while(1){
 		clear();
@@ -124,32 +110,32 @@ void cfg::optionScreen(){
 void cfg::configScreen(){}//TODO screen to change configs
 
 void cfg::sleep(){
-	usleep(10000000/(cfg::config()->speed));
+	usleep(10000000/(pConfig->speed));
 };
 
 void cfg::moveCamera(int direction){
 	switch (direction){
 		case 0:
-			curY = ((curY-1)+game::jogo()->board.alt)%game::jogo()->board.alt; break;
+			curY = ((curY-1)+pJogo->board.alt)%pJogo->board.alt; break;
 		case 1:
-			curX = ((curX-1)+game::jogo()->board.lar)%game::jogo()->board.lar; break;
+			curX = ((curX-1)+pJogo->board.lar)%pJogo->board.lar; break;
 		case 2:
-			curY = (curY+1)%game::jogo()->board.alt; break;
+			curY = (curY+1)%pJogo->board.alt; break;
 		case 3:
-			curX = (curX+1)%game::jogo()->board.lar; break;
+			curX = (curX+1)%pJogo->board.lar; break;
 	}
 }
 
 void cfg::moveCurs(int direction){
 	switch (direction){
 		case 0:
-			cursorY = ((cursorY-1)+game::jogo()->board.alt)%game::jogo()->board.alt; break;
+			cursorY = ((cursorY-1)+pJogo->board.alt)%pJogo->board.alt; break;
 		case 1:
-			cursorX = ((cursorX-1)+game::jogo()->board.lar)%game::jogo()->board.lar; break;
+			cursorX = ((cursorX-1)+pJogo->board.lar)%pJogo->board.lar; break;
 		case 2:
-			cursorY = (cursorY+1)%game::jogo()->board.alt; break;
+			cursorY = (cursorY+1)%pJogo->board.alt; break;
 		case 3:
-			cursorX = (cursorX+1)%game::jogo()->board.lar; break;
+			cursorX = (cursorX+1)%pJogo->board.lar; break;
 	}
 }
 

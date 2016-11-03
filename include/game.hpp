@@ -6,6 +6,7 @@
 #include <string>
 
 #define MAX_UNDO 11 //should be in config
+#define pJogo game::jogo()
 
 class game{
 	game();
@@ -29,7 +30,7 @@ class game{
 		
 		short int	rS; /**< rule survive*/
 		short int 	rB; /**< rule born*/
-		
+
 		bool 		isAlive			(int x,int y);
 		bool 		willSurvive		(int neigh);
 		bool 		willBeBorn		(int neigh);
